@@ -1,0 +1,164 @@
+/* Enhanced Header Animations CSS */
+
+/* Common header transitions */
+.banjara-header,
+.top-bar {
+  transition: all 0.4s ease;
+}
+
+.banjara-header.active {
+  background-color: theme('colors.charcoal.900');
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  border-bottom-color: theme('colors.gold.400 / 0.3');
+}
+
+.banjara-header.hide {
+  transform: translateY(-150%);
+  transition-delay: 250ms;
+}
+
+/* Mobile Navigation Slide Effect - from left */
+.mobile-navbar {
+  position: fixed;
+  top: 0;
+  left: -100%; /* Start off-screen to the left */
+  height: 100%;
+  width: 100%;
+  max-width: 360px;
+  background-color: theme('colors.charcoal.900');
+  visibility: hidden;
+  transition: transform 0.5s ease, visibility 0s 0.5s, left 0.5s ease;
+  padding: 30px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.mobile-navbar.active {
+  left: 0;
+  visibility: visible;
+  transition: left 0.5s ease, visibility 0s;
+}
+
+/* Hover underline animation */
+.hover-underline {
+  position: relative;
+  max-width: max-content;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: theme('colors.gold.400');
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  opacity: 0;
+}
+
+.hover-underline:hover::after,
+.hover-underline.active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Navbar link with separator */
+.mobile-navbar-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.mobile-navbar-link .span {
+  transition: all 0.3s ease;
+}
+
+.mobile-navbar-link:hover .span,
+.mobile-navbar-link.active .span {
+  color: theme('colors.gold.400');
+  transform: translateX(20px);
+}
+
+.mobile-navbar-link .separator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-navbar-link:hover .separator,
+.mobile-navbar-link.active .separator {
+  opacity: 1;
+}
+
+/* Mobile menu toggle button with wave animation */
+.nav-toggle-btn .line {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background-color: theme('colors.gold.400');
+  margin: 4px 0;
+  transform-origin: left;
+  animation: menuBtnWave 400ms ease-in-out alternate infinite;
+}
+
+@keyframes menuBtnWave {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0.5);
+  }
+}
+
+.nav-toggle-btn .line-1 {
+  animation-delay: 0ms;
+}
+
+.nav-toggle-btn .line-2 {
+  animation-delay: 150ms;
+}
+
+.nav-toggle-btn .line-3 {
+  animation-delay: 300ms;
+}
+
+/* Overlay animation */
+.menu-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s;
+}
+
+/* Topbar separator */
+.topbar-separator {
+  width: 1px;
+  height: 20px;
+  background-image: linear-gradient(to bottom, transparent, theme('colors.gold.400 / 0.5'), transparent);
+}
+
+/* Mobile menu link animations */
+.mobile-nav-link {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.3s ease, transform 0.4s ease;
+  transition-delay: calc(0.05s * var(--index));
+  border-top: 1px solid theme('colors.gold.400 / 0.2');
+  padding: 10px 0;
+}
+
+.mobile-navbar.active .mobile-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
