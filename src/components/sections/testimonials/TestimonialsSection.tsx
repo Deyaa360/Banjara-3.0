@@ -338,7 +338,6 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
       <div className="w-full overflow-hidden relative mt-0 -mb-1" style={{ pointerEvents: 'none' }}>
         {/* Radial overlays to match the gallery section */}
         <div className="absolute top-1/2 left-1/3 transform -translate-y-1/2" style={{ width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(121, 89, 57, 0.15) 0%, rgba(121, 89, 57, 0.05) 60%, transparent 100%)', filter: 'blur(120px)', opacity: 0.8, zIndex: 0, pointerEvents: 'none' }} />
-        <div className="absolute top-0 right-0 transform -translate-y-1/4" style={{ width: '1000px', height: '1000px', background: 'radial-gradient(circle, rgba(230, 192, 122, 0.1) 0%, rgba(230, 192, 122, 0.03) 60%, transparent 100%)', filter: 'blur(150px)', opacity: 0.7, zIndex: 0, pointerEvents: 'none' }} />
         <svg 
           className="w-full h-32 rotate-180"
           xmlns="http://www.w3.org/2000/svg" 

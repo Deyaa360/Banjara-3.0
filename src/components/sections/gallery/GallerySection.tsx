@@ -108,18 +108,6 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             opacity: 0.8
           }}
         ></div>
-        
-        {/* Extra large gold circle in top-right */}
-        <div 
-          className="absolute top-0 right-0 transform -translate-y-1/4" 
-          style={{ 
-            width: '1000px', 
-            height: '1000px', 
-            background: 'radial-gradient(circle, rgba(230, 192, 122, 0.1) 0%, rgba(230, 192, 122, 0.03) 60%, transparent 100%)',
-            filter: 'blur(150px)',
-            opacity: 0.7
-          }}
-        ></div>
       </div>
 
       <ResponsiveContainer>

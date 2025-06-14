@@ -181,15 +181,6 @@ export default function Home() {
         />
       </ThemeProvider>
 
-      {/* Transition from Dark to Light */}
-      <ThemeProvider themeMode="dark">
-        <SectionTransition 
-          fromTheme="dark" 
-          toTheme="light" 
-          height="h-32"
-        />
-      </ThemeProvider>
-
       {/* Act II: Brand Story (Light Theme) */}
       <ThemeProvider themeMode="light">
         {/* Heritage Section */}

@@ -23,7 +23,72 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   decorative = true,
 }) => {
   return (
-    <section className="relative bg-walnut-50 overflow-hidden">
+    <section className="relative bg-walnut-50 overflow-hidden pt-0 mt-0">
+      {/* --- Wave Divider & Overlays for Seamless Transition (TOP) --- */}
+      <div className="w-full overflow-hidden relative" style={{ pointerEvents: 'none' }}>
+        {/* Overlays to match chef's featured section */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Large charcoal circle in center-right - using charcoal-500 */}
+          <div 
+            className="absolute top-1/2 right-1/3 transform -translate-y-1/2" 
+            style={{ 
+              width: '800px', 
+              height: '800px', 
+              background: 'radial-gradient(circle, rgba(109, 109, 109, 0.25) 0%, rgba(109, 109, 109, 0.1) 60%, transparent 100%)',
+              filter: 'blur(150px)',
+              opacity: 0.9
+            }}
+          ></div>
+          {/* Extra large deep charcoal circle in bottom-left - using charcoal-700 */}
+          <div 
+            className="absolute -bottom-1/4 -left-1/4" 
+            style={{ 
+              width: '1200px', 
+              height: '1200px', 
+              background: 'radial-gradient(circle, rgba(79, 79, 79, 0.3) 0%, rgba(79, 79, 79, 0.12) 70%, transparent 100%)',
+              filter: 'blur(180px)',
+              opacity: 0.8
+            }}
+          ></div>
+          {/* Light charcoal circle in top-left - using charcoal-400 */}
+          <div 
+            className="absolute -top-1/4 -left-1/4" 
+            style={{ 
+              width: '1000px', 
+              height: '1000px', 
+              background: 'radial-gradient(circle, rgba(136, 136, 136, 0.18) 0%, rgba(136, 136, 136, 0.08) 60%, transparent 100%)',
+              filter: 'blur(160px)',
+              opacity: 0.6
+            }}
+          ></div>
+          {/* Subtle highlight circle in top-right - using charcoal-300 */}
+          <div 
+            className="absolute top-0 right-0" 
+            style={{ 
+              width: '900px', 
+              height: '900px', 
+              background: 'radial-gradient(circle, rgba(176, 176, 176, 0.1) 0%, rgba(176, 176, 176, 0.04) 60%, transparent 100%)',
+              filter: 'blur(170px)',
+              opacity: 0.5
+            }}
+          ></div>
+        </div>
+        <svg 
+          className="w-full h-32"
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1000 100"
+          preserveAspectRatio="none"
+          style={{ display: 'block', position: 'relative', zIndex: 1, pointerEvents: 'auto' }}
+        >
+          <g fill="#1a1a1a">
+            <path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path>
+            <path d="M1000 4v86C833.3 90 833.3 3.6 666.7 3.6S500 90 333.3 90 166.7 4 0 4h1000Z" opacity=".5"></path>
+            <path d="M617 1v86C372 119 384 1 196 1h421Z" opacity=".5"></path>
+            <path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path>
+          </g>
+        </svg>
+      </div>
+
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-walnut-400/20 via-walnut-300/10 to-transparent" />
@@ -119,6 +184,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           </div>
         </div>
       </ResponsiveContainer>
+
+      {/* --- Wave Divider & Overlays for Seamless Transition (BOTTOM) --- */}
+      {/* Removed bottom wave divider as requested */}
     </section>
   );
 };
