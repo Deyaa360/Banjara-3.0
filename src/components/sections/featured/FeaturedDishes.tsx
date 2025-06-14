@@ -32,56 +32,7 @@ export const FeaturedDishes: React.FC<FeaturedDishesProps> = ({
 }) => {
   return (
     <section className="py-20 bg-charcoal-900 overflow-hidden relative">
-      {/* Enhanced ambient background elements with larger, more blurred circles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large charcoal circle in center-right - using charcoal-500 */}
-        <div 
-          className="absolute top-1/2 right-1/3 transform -translate-y-1/2" 
-          style={{ 
-            width: '800px', 
-            height: '800px', 
-            background: 'radial-gradient(circle, rgba(109, 109, 109, 0.25) 0%, rgba(109, 109, 109, 0.1) 60%, transparent 100%)',
-            filter: 'blur(150px)',
-            opacity: 0.9
-          }}
-        ></div>
-        
-        {/* Extra large deep charcoal circle in bottom-left - using charcoal-700 */}
-        <div 
-          className="absolute -bottom-1/4 -left-1/4" 
-          style={{ 
-            width: '1200px', 
-            height: '1200px', 
-            background: 'radial-gradient(circle, rgba(79, 79, 79, 0.3) 0%, rgba(79, 79, 79, 0.12) 70%, transparent 100%)',
-            filter: 'blur(180px)',
-            opacity: 0.8
-          }}
-        ></div>
-        
-        {/* Light charcoal circle in top-left - using charcoal-400 */}
-        <div 
-          className="absolute -top-1/4 -left-1/4" 
-          style={{ 
-            width: '1000px', 
-            height: '1000px', 
-            background: 'radial-gradient(circle, rgba(136, 136, 136, 0.18) 0%, rgba(136, 136, 136, 0.08) 60%, transparent 100%)',
-            filter: 'blur(160px)',
-            opacity: 0.6
-          }}
-        ></div>
-        
-        {/* Subtle highlight circle in top-right - using charcoal-300 */}
-        <div 
-          className="absolute top-0 right-0" 
-          style={{ 
-            width: '900px', 
-            height: '900px', 
-            background: 'radial-gradient(circle, rgba(176, 176, 176, 0.1) 0%, rgba(176, 176, 176, 0.04) 60%, transparent 100%)',
-            filter: 'blur(170px)',
-            opacity: 0.7
-          }}
-        ></div>
-      </div>
+      
       
       <div className="container mx-auto px-4">
         {/* Section Header */}
