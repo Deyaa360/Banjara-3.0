@@ -90,7 +90,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   // Apply theme-specific styles
   const bgColor = themeMode === 'dark' 
     ? 'bg-charcoal-900' 
-    : 'bg-walnut-50';
+    : 'bg-walnut-100';
   
   const textColor = themeMode === 'dark'
     ? 'text-beige-100'
@@ -334,10 +334,8 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
         </div>
       </ResponsiveContainer>
 
-      {/* --- Wave Divider & Overlays for Seamless Transition --- */}
-      <div className="w-full overflow-hidden relative mt-0 -mb-1" style={{ pointerEvents: 'none' }}>
-        {/* Radial overlays to match the gallery section */}
-        <div className="absolute top-1/2 left-1/3 transform -translate-y-1/2" style={{ width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(121, 89, 57, 0.15) 0%, rgba(121, 89, 57, 0.05) 60%, transparent 100%)', filter: 'blur(120px)', opacity: 0.8, zIndex: 0, pointerEvents: 'none' }} />
+      {/* --- Wave Divider for Seamless Transition --- */}
+      <div className="w-full overflow-hidden mt-0 -mb-1" style={{ pointerEvents: 'none' }}>
         <svg 
           className="w-full h-32 rotate-180"
           xmlns="http://www.w3.org/2000/svg" 
