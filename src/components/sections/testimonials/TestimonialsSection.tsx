@@ -90,7 +90,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   // Apply theme-specific styles
   const bgColor = themeMode === 'dark' 
     ? 'bg-charcoal-900' 
-    : 'bg-walnut-100';
+    : 'bg-walnut-50';
   
   const textColor = themeMode === 'dark'
     ? 'text-beige-100'
@@ -109,7 +109,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
     : 'text-walnut-400';
 
   return (
-    <section className={`relative bg-walnut-200 overflow-hidden`}>
+    <section className={`relative bg-walnut-400 overflow-hidden`}>
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large walnut circle in center-right */}
