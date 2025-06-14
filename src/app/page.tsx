@@ -209,16 +209,6 @@ export default function Home() {
         </LazySection>
       </ThemeProvider>
 
-      {/* Transition from Light to Dark */}
-      <ThemeProvider themeMode="light">
-        <SectionTransition 
-          invert={true}
-          fromTheme="light" 
-          toTheme="dark" 
-          height="h-32"
-        />
-      </ThemeProvider>
-
       {/* Act III: Action-Oriented Conclusion (Dark Theme) */}
       <ThemeProvider themeMode="dark">
         {/* Gallery Section */}
