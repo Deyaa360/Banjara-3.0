@@ -28,7 +28,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
       <div className="w-full overflow-hidden relative" style={{ pointerEvents: 'none' }}>
         
         <svg 
-          className="w-full h-32"
+          className="w-full h-16 sm:h-20 md:h-24 lg:h-32"
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 1000 100"
           preserveAspectRatio="none"

@@ -302,7 +302,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
       {/* --- Wave Divider for Seamless Transition --- */}
       <div className="w-full overflow-hidden mt-0 -mb-1" style={{ pointerEvents: 'none' }}>
         <svg 
-          className="w-full h-32 rotate-180"
+          className="w-full h-16 sm:h-20 md:h-24 lg:h-32 rotate-180"
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 1000 100"
           preserveAspectRatio="none"
