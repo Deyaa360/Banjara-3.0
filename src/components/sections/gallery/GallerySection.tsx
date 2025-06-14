@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, X, ChevronLeft, ChevronRight, Camera, Image as ImageIcon } from 'lucide-react';
 import { AnimatedSection, ResponsiveContainer, SectionHeader, Button, SafeImage } from '@/components/common';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
@@ -45,30 +45,30 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
     : images.filter(img => img.category === activeCategory);
     
   // Handle lightbox navigation
-  const openLightbox = (src: string, index: number) => {
+  const openLightbox = useCallback((src: string, index: number) => {
     setLightboxImage(src);
     setLightboxIndex(index);
     // Prevent scrolling when lightbox is open
     document.body.style.overflow = 'hidden';
-  };
+  }, []);
   
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightboxImage(null);
     // Re-enable scrolling
     document.body.style.overflow = '';
-  };
+  }, []);
   
-  const nextLightboxImage = () => {
+  const nextLightboxImage = useCallback(() => {
     if (filteredImages.length <= 1) return;
     setLightboxIndex((prev) => (prev + 1) % filteredImages.length);
     setLightboxImage(filteredImages[(lightboxIndex + 1) % filteredImages.length].src);
-  };
+  }, [filteredImages, lightboxIndex]);
   
-  const prevLightboxImage = () => {
+  const prevLightboxImage = useCallback(() => {
     if (filteredImages.length <= 1) return;
     setLightboxIndex((prev) => (prev - 1 + filteredImages.length) % filteredImages.length);
     setLightboxImage(filteredImages[(lightboxIndex - 1 + filteredImages.length) % filteredImages.length].src);
-  };
+  }, [filteredImages, lightboxIndex]);
   
   // Handle keyboard navigation
   useEffect(() => {
@@ -82,7 +82,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxImage, lightboxIndex]);
+  }, [lightboxImage, closeLightbox, nextLightboxImage, prevLightboxImage]);
   
   // Simulate loading state
   useEffect(() => {
@@ -163,85 +163,154 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
           </motion.div>
         )}
 
-        {/* Gallery Grid */}
+        {/* Mobile-First Visual Showcase */}
         <div ref={galleryRef} className="relative">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((_, index) => (
-                <div 
-                  key={index}
-                  className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-charcoal-800/80 to-charcoal-800/40 border border-walnut-600/10"
-                >
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-charcoal-700/50 animate-pulse flex items-center justify-center">
-                      <ImageIcon className="w-6 h-6 text-charcoal-500/50" />
-                    </div>
-                  </div>
+            <div className="space-y-6">
+              <div className="h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-charcoal-800/80 to-charcoal-800/40 border border-walnut-600/10 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-charcoal-700/50 animate-pulse flex items-center justify-center">
+                  <ImageIcon className="w-6 h-6 text-charcoal-500/50" />
                 </div>
-              ))}
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {[1, 2].map((_, index) => (
+                  <div key={index} className="h-32 sm:h-40 rounded-xl bg-gradient-to-br from-charcoal-800/60 to-charcoal-800/30 border border-walnut-600/10" />
+                ))}
+              </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredImages.map((image, index) => {
-                const staggerDelay = 0.1 + (index % 3) * 0.1;
-                
-                return (
+            <div className="space-y-8">
+              {/* Featured Story Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="relative h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-heritage-lg border border-walnut-600/20 cursor-pointer group"
+                onClick={() => openLightbox(filteredImages[0]?.src, 0)}
+              >
+                <SafeImage
+                  src={filteredImages[0]?.src}
+                  alt={filteredImages[0]?.alt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-charcoal-900/30 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    <div className="text-xs sm:text-sm text-gold-400 font-medium mb-1 uppercase tracking-wider">{filteredImages[0]?.category}</div>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-display text-white leading-tight">{filteredImages[0]?.alt}</h3>
+                    <div className="h-0.5 w-12 bg-gold-400 rounded-full mt-3"></div>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Dual Feature Layout */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
+              >
+                {filteredImages.slice(1, 3).map((image, index) => (
                   <motion.div
                     key={image.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ 
                       duration: 0.6, 
-                      delay: staggerDelay,
+                      delay: 0.4 + (index * 0.1),
                       ease: [0.22, 1, 0.36, 1]
                     }}
-                    whileHover={{ y: -8 }}
-                    className="group"
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
+                    className="relative h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden shadow-heritage border border-walnut-600/20 cursor-pointer group"
+                    onClick={() => openLightbox(image.src, index + 1)}
                   >
-                    <div 
-                      className="aspect-square rounded-2xl overflow-hidden cursor-pointer relative shadow-heritage-lg border border-walnut-600/20"
-                      onClick={() => openLightbox(image.src, index)}
+                    <SafeImage
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                    <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4">
+                      <div className="text-xs text-gold-400 font-medium mb-1 uppercase tracking-wide">{image.category}</div>
+                      <h4 className="text-sm sm:text-base font-display text-white leading-tight">{image.alt}</h4>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Experience Cards - Mobile Optimized */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
+              >
+                {uniqueCategories.map((category, index) => {
+                  const categoryImages = filteredImages.filter(img => img.category === category);
+                  return (
+                    <motion.div
+                      key={category}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                      transition={{ duration: 0.5, delay: 0.5 + (index * 0.1) }}
+                      className="bg-charcoal-800/40 backdrop-blur-sm border border-walnut-600/20 rounded-xl p-4 sm:p-6 text-center hover:bg-charcoal-800/60 transition-all duration-300 cursor-pointer active:scale-95"
+                      onClick={() => setActiveCategory(category)}
                     >
-                      {/* Image */}
+                      <div className="text-2xl sm:text-3xl font-display text-gold-400 mb-2">{categoryImages.length}</div>
+                      <div className="text-base sm:text-lg font-medium text-white mb-1">{category}</div>
+                      <div className="text-xs sm:text-sm text-tan-300">Moments</div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+
+              {/* Additional Visual Stories - Mobile Stack */}
+              {filteredImages.length > 3 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="space-y-4"
+                >
+                  {filteredImages.slice(3).map((image, index) => (
+                    <motion.div
+                      key={image.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                      transition={{ 
+                        duration: 0.5, 
+                        delay: 0.7 + (index * 0.1),
+                        ease: [0.22, 1, 0.36, 1]
+                      }}
+                      className="relative h-40 sm:h-48 rounded-xl overflow-hidden shadow-heritage border border-walnut-600/20 cursor-pointer group"
+                      onClick={() => openLightbox(image.src, index + 3)}
+                    >
                       <SafeImage
                         src={image.src}
                         alt={image.alt}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                        sizes="100vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-charcoal-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {/* Category Badge */}
-                      <div className="absolute top-4 left-4 px-3 py-1 bg-gold-400/90 rounded-full text-xs font-medium text-charcoal-900 opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-4 group-hover:translate-y-0">
-                        {image.category}
+                      <div className="absolute inset-0 bg-gradient-to-r from-charcoal-900/90 via-charcoal-900/50 to-transparent" />
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="p-4 sm:p-6">
+                          <div className="text-xs text-gold-400 font-medium mb-1 uppercase tracking-wide">{image.category}</div>
+                          <h4 className="text-lg sm:text-xl font-display text-white leading-tight mb-2">{image.alt}</h4>
+                          <div className="h-0.5 w-8 bg-gold-400 rounded-full"></div>
+                        </div>
                       </div>
-                      
-                      {/* Zoom Icon */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <motion.div 
-                          initial={{ scale: 0 }}
-                          animate={{ scale: hoveredIndex === index ? 1 : 0 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                          className="w-16 h-16 rounded-full bg-gold-400 flex items-center justify-center shadow-xl"
-                        >
-                          <Camera className="h-7 w-7 text-charcoal-900" />
-                        </motion.div>
-                      </div>
-                      
-                      {/* Image Title */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <h3 className="text-lg font-display text-white mb-1">{image.alt}</h3>
-                        <div className="h-0.5 w-12 bg-gold-400 rounded-full"></div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
