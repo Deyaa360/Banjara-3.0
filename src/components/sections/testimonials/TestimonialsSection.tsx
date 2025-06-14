@@ -107,6 +107,21 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 
   return (
     <section className={`relative bg-walnut-400 overflow-hidden`}>
+      {/* --- Wave Divider for Seamless Transition --- */}
+      <div className="w-full overflow-hidden mb-0 -mt-1" style={{ pointerEvents: 'none' }}>
+        <svg 
+          className="w-full h-16 sm:h-20 md:h-24 lg:h-32"
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1000 100"
+          preserveAspectRatio="none"
+          style={{ display: 'block', position: 'relative', zIndex: 1, pointerEvents: 'auto' }}
+        >
+          <g fill="#1a1a1a">
+            <path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path>
+          </g>
+        </svg>
+      </div>
+
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large walnut circle in center-right */}
@@ -298,21 +313,6 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           })}
         </div>
       </ResponsiveContainer>
-
-      {/* --- Wave Divider for Seamless Transition --- */}
-      <div className="w-full overflow-hidden mt-0 -mb-1" style={{ pointerEvents: 'none' }}>
-        <svg 
-          className="w-full h-16 sm:h-20 md:h-24 lg:h-32 rotate-180"
-          xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 1000 100"
-          preserveAspectRatio="none"
-          style={{ display: 'block', position: 'relative', zIndex: 1, pointerEvents: 'auto' }}
-        >
-          <g fill="#1a1a1a">
-            <path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path>
-          </g>
-        </svg>
-      </div>
     </section>
   );
 };
