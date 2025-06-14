@@ -3,7 +3,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
 
 interface SectionTransitionProps {
-  type?: 'wave' | 'angle' | 'curve';
+  type?: string; // Type is no longer used but kept for backward compatibility
   invert?: boolean;
   className?: string;
   height?: string;
@@ -12,39 +12,53 @@ interface SectionTransitionProps {
 }
 
 export const SectionTransition: React.FC<SectionTransitionProps> = ({
-  type = 'curve',
+  type, // No longer used
   invert = false,
   className = '',
-  height = 'h-16',
+  height = 'h-32',
   fromTheme,
   toTheme,
 }) => {
-  const { themeMode } = useTheme();
+  // Try to get theme from context, fall back to fromTheme or 'light' if not available
+  let themeMode: 'dark' | 'light' = fromTheme || 'light';
+  try {
+    const context = useTheme();
+    if (context) {
+      themeMode = context.themeMode;
+    }
+  } catch (error) {
+    console.warn('SectionTransition: Using provided fromTheme or default because component is not within a ThemeProvider');
+  }
   
   // Determine colors based on theme
   // If fromTheme and toTheme are provided, use those instead of the current theme
   const currentTheme = fromTheme || themeMode;
   const targetTheme = toTheme || (currentTheme === 'dark' ? 'light' : 'dark');
   
-  const fillColor = targetTheme === 'dark' ? '#1a1a1a' : '#f2ede7';
-  
-  // SVG paths for different divider types
-  const paths = {
-    wave: 'M0,32L48,37.3C96,43,192,53,288,53.3C384,53,480,43,576,48C672,53,768,75,864,80C960,85,1056,75,1152,64C1248,53,1344,43,1392,37.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z',
-    angle: 'M0,0L1440,64L1440,0L0,0Z',
-    curve: 'M0,0C240,64,480,96,720,96C960,96,1200,64,1440,0L1440,0L0,0Z',
+  // Use specific color values for light and dark themes
+  const themeColors = {
+    dark: '#1a1a1a',  // Charcoal-900
+    light: '#f2ede7'  // Walnut-50
   };
+  
+  const fillColor = themeColors[targetTheme];
+  
+  // We'll use a single SVG for all transition types now
   
   return (
     <div className={cn("w-full overflow-hidden", className)}>
-      <svg
+      <svg 
         className={`w-full ${height} ${invert ? 'transform rotate-180' : ''}`}
-        viewBox="0 0 1440 96"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 1000 100"
         preserveAspectRatio="none"
       >
-        <path d={paths[type]} fill={fillColor} />
+        <g fill={fillColor}>
+          <path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path>
+          <path d="M1000 4v86C833.3 90 833.3 3.6 666.7 3.6S500 90 333.3 90 166.7 4 0 4h1000Z" opacity=".5"></path>
+          <path d="M617 1v86C372 119 384 1 196 1h421Z" opacity=".5"></path>
+          <path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path>
+        </g>
       </svg>
     </div>
   );

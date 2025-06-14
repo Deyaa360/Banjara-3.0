@@ -184,9 +184,9 @@ export default function Home() {
       {/* Transition from Dark to Light */}
       <ThemeProvider themeMode="dark">
         <SectionTransition 
-          type="curve" 
           fromTheme="dark" 
           toTheme="light" 
+          height="h-32"
         />
       </ThemeProvider>
 
@@ -212,10 +212,10 @@ export default function Home() {
       {/* Transition from Light to Dark */}
       <ThemeProvider themeMode="light">
         <SectionTransition 
-          type="curve" 
           invert={true}
           fromTheme="light" 
           toTheme="dark" 
+          height="h-32"
         />
       </ThemeProvider>
 

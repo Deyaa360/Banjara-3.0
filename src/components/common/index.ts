@@ -1,4 +1,5 @@
 export { default as AnimatedSection } from './AnimatedSection';
+export { default as BackgroundPattern } from './BackgroundPattern';
 export { default as Button } from './Button';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as GoogleMap } from './GoogleMap';
