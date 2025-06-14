@@ -1,1 +1,1 @@
-export { default as TestimonialsSection } from './TestimonialsSection';
+export { TestimonialsSection } from './TestimonialsSection';

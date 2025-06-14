@@ -22,7 +22,7 @@ const SafeImage: React.FC<SafeImageProps> = ({
   fill,
   className = '',
   style = {},
-  fallbackSrc = '/placeholder-image.jpg',
+  fallbackSrc = '/placeholder-image.svg',
   priority = false,
   minHeight = '200px',
   aspectRatio,
