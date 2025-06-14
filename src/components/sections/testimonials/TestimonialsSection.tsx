@@ -109,7 +109,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
     : 'text-walnut-400';
 
   return (
-    <section className={`relative ${bgColor} overflow-hidden`}>
+    <section className={`relative bg-walnut-200 overflow-hidden`}>
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large walnut circle in center-right */}

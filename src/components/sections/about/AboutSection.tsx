@@ -23,7 +23,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   decorative = true,
 }) => {
   return (
-    <section className="relative bg-walnut-100 overflow-hidden pt-0 mt-0">
+    <section className="relative bg-walnut-200 overflow-hidden pt-0 mt-0">
       {/* --- Wave Divider & Overlays for Seamless Transition (TOP) --- */}
       <div className="w-full overflow-hidden relative" style={{ pointerEvents: 'none' }}>
         
