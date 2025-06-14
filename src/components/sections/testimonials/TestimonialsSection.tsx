@@ -99,11 +99,11 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 
   const cardBg = themeMode === 'dark'
     ? 'bg-charcoal-800 border-gold-500/20'
-    : 'bg-white border-walnut-500/30';
+    : 'bg-walnut-300/30 border-walnut-600/40 backdrop-blur-sm';
     
   const quoteColor = themeMode === 'dark'
     ? 'text-charcoal-700'
-    : 'text-walnut-400';
+    : 'text-walnut-600';
 
   return (
     <section className={`relative bg-walnut-400 overflow-hidden`}>
@@ -197,78 +197,46 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                     key={testimonial.id} 
                     className={`${index === currentIndex ? 'block' : 'hidden'}`}
                   >
-                    <div className={`${cardBg} rounded-3xl p-10 sm:p-12 md:p-16 border shadow-[0_10px_30px_-5px_rgba(79,59,38,0.2)] relative overflow-hidden`}>
-                      {/* Background decorative elements */}
-                      <div className={`absolute top-0 left-0 w-60 h-60 bg-gradient-to-br ${themeMode === 'dark' ? 'from-gold-400/10' : 'from-gold-400/20'} to-transparent rounded-full -translate-x-1/2 -translate-y-1/2`}></div>
-                      <div className={`absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl ${themeMode === 'dark' ? 'from-walnut-500/10' : 'from-walnut-500/20'} to-transparent rounded-full translate-x-1/3 translate-y-1/3`}></div>
-                      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23715436' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E\")" }}></div>
+                    <div className={`${cardBg} rounded-3xl p-10 sm:p-12 md:p-16 border shadow-[0_8px_25px_-8px_rgba(79,59,38,0.15)] relative overflow-hidden`}>
+                      {/* Subtle texture overlay */}
+                      <div className="absolute inset-0 opacity-8" 
+                        style={{ 
+                          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23715436\' fill-opacity=\'0.15\'%3E%3Ccircle cx=\'10\' cy=\'10\' r=\'1\'/%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'1\'/%3E%3Ccircle cx=\'20\' cy=\'40\' r=\'0.5\'/%3E%3Ccircle cx=\'40\' cy=\'20\' r=\'0.5\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+                        }}
+                      ></div>
+                      {/* Subtle gradient overlay for depth */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${themeMode === 'dark' ? 'from-charcoal-700/20 via-transparent to-charcoal-800/10' : 'from-walnut-200/40 via-transparent to-walnut-400/20'} rounded-3xl`}></div>
                       
-                      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 relative">
-                        {/* Author Image - Left side on desktop */}
-                        <div className="md:order-1 flex-shrink-0">
-                          <motion.div 
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5 }}
-                            className="relative"
-                          >
-                            {testimonial.image ? (
-                              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-gold-400/40 shadow-elegant">
-                                <SafeImage 
-                                  src={testimonial.image} 
-                                  alt={testimonial.name}
-                                  width={128}
-                                  height={128}
-                                  className="object-cover w-full h-full"
-                                />
-                                <div className="absolute inset-0 rounded-full border-2 border-gold-400/10 bg-gradient-to-br from-gold-400/10 to-transparent opacity-60"></div>
-                              </div>
-                            ) : (
-                              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-gold-400/40 bg-gradient-to-br from-beige-100 to-beige-200 flex items-center justify-center shadow-elegant">
-                                <Quote className="w-12 h-12 text-walnut-500/70" />
-                              </div>
-                            )}
-                            
-                            {/* Quote Icon - Positioned on the image */}
-                            <div className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-walnut-500 flex items-center justify-center shadow-lg">
-                              <Quote size={18} className="text-beige-100" />
-                            </div>
-                          </motion.div>
-                          
-                          {/* Author info on mobile */}
-                          <div className="text-center md:hidden mt-4">
-                            <h4 className={`font-display ${textColor} font-semibold text-xl`}>{testimonial.name}</h4>
-                            {testimonial.role && (
-                              <p className={`${themeMode === 'dark' ? 'text-beige-200' : 'text-walnut-600'} text-sm font-serif italic`}>{testimonial.role}</p>
-                            )}
+                      <div className="text-center relative">
+                        {/* Large decorative quote icon */}
+                        <div className="flex justify-center mb-8">
+                          <div className="w-16 h-16 rounded-full bg-walnut-500/20 flex items-center justify-center">
+                            <Quote size={32} className={`${themeMode === 'dark' ? 'text-gold-400' : 'text-walnut-700'}`} />
                           </div>
                         </div>
                         
-                        {/* Content - Right side on desktop */}
-                        <div className="md:order-2 flex-1">
-                          {/* Testimonial Text */}
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                          >
-                            <p className={`text-xl md:text-2xl ${textColor} font-serif italic mb-6 leading-relaxed`}>
-                              "{testimonial.quote}"
-                            </p>
-                          </motion.div>
-                          
-                          {/* Rating */}
-                          <div className="mb-6">
-                            {renderStars(testimonial.rating)}
-                          </div>
-                          
-                          {/* Author info on desktop */}
-                          <div className="hidden md:block">
-                            <h4 className={`font-display ${textColor} font-semibold text-xl`}>{testimonial.name}</h4>
-                            {testimonial.role && (
-                              <p className={`${themeMode === 'dark' ? 'text-beige-200' : 'text-walnut-600'} text-sm font-serif italic`}>{testimonial.role}</p>
-                            )}
-                          </div>
+                        {/* Testimonial Text */}
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.1 }}
+                        >
+                          <p className={`text-xl md:text-2xl lg:text-3xl ${textColor} font-serif italic mb-8 leading-relaxed max-w-4xl mx-auto`}>
+                            "{testimonial.quote}"
+                          </p>
+                        </motion.div>
+                        
+                        {/* Rating */}
+                        <div className="mb-8 flex justify-center">
+                          {renderStars(testimonial.rating)}
+                        </div>
+                        
+                        {/* Author info */}
+                        <div className="text-center">
+                          <h4 className={`font-display ${textColor} font-semibold text-xl mb-2`}>{testimonial.name}</h4>
+                          {testimonial.role && (
+                            <p className={`${themeMode === 'dark' ? 'text-beige-200' : 'text-walnut-600'} text-sm font-serif italic`}>{testimonial.role}</p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -284,9 +252,9 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
             disabled={isTransitioning}
             className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-14 h-14 rounded-full ${
               themeMode === 'dark' 
-                ? 'bg-charcoal-800 border-gold-500/30 text-gold-400 hover:text-gold-300 hover:bg-charcoal-700' 
-                : 'bg-walnut-600 border-walnut-700/50 text-beige-50 hover:text-white hover:bg-walnut-700'
-            } border flex items-center justify-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_12px_rgba(79,59,38,0.3)]`}
+                ? 'border-2 border-gold-500/40 text-gold-400 hover:text-gold-300 hover:border-gold-400/60 hover:bg-gold-500/10' 
+                : 'border-2 border-walnut-700/50 text-walnut-700 hover:text-walnut-800 hover:border-walnut-800/70 hover:bg-walnut-700/10'
+            } flex items-center justify-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm`}
             aria-label="Previous testimonial"
           >
             <ChevronLeft size={24} />
@@ -297,9 +265,9 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
             disabled={isTransitioning}
             className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-14 h-14 rounded-full ${
               themeMode === 'dark' 
-                ? 'bg-charcoal-800 border-gold-500/30 text-gold-400 hover:text-gold-300 hover:bg-charcoal-700' 
-                : 'bg-walnut-600 border-walnut-700/50 text-beige-50 hover:text-white hover:bg-walnut-700'
-            } border flex items-center justify-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_12px_rgba(79,59,38,0.3)]`}
+                ? 'border-2 border-gold-500/40 text-gold-400 hover:text-gold-300 hover:border-gold-400/60 hover:bg-gold-500/10' 
+                : 'border-2 border-walnut-700/50 text-walnut-700 hover:text-walnut-800 hover:border-walnut-800/70 hover:bg-walnut-700/10'
+            } flex items-center justify-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm`}
             aria-label="Next testimonial"
           >
             <ChevronRight size={24} />
