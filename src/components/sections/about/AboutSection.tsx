@@ -112,7 +112,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                     // Apply special styling to the last word
                     if (index === array.length - 1) {
                       return (
-                        <span key={index} className="text-gold-600 font-light tracking-wide">
+                        <span key={index} className="text-gold-800 font-light tracking-wide">
                           {word}
                         </span>
                       );
@@ -130,7 +130,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               )}
               
               {/* Decorative line */}
-              <div className="w-24 h-1 bg-gradient-to-r from-walnut-600 to-gold-500 rounded-full mb-8"></div>
+              <div className="w-24 h-1 bg-gradient-to-r from-walnut-600 to-gold-700 rounded-full mb-8"></div>
             </AnimatedSection>
           </div>
         </div>

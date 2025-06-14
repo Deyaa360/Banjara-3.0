@@ -96,10 +96,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
     ? 'text-beige-100'
     : 'text-walnut-800';
     
-  const accentColor = themeMode === 'dark'
-    ? 'text-gold-400'
-    : 'text-gold-600';
-    
+
   const cardBg = themeMode === 'dark'
     ? 'bg-charcoal-800 border-gold-500/20'
     : 'bg-white border-walnut-500/30';

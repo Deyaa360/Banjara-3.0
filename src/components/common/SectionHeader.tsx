@@ -47,7 +47,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     return title.split(' ').map((word, index) => (
       <span key={index} className="inline-block mr-2">
         {word === accentWord ? (
-          <span className={theme === 'dark' ? 'text-gradient-warm' : 'text-gold-600'}>{word}</span>
+          <span className={theme === 'dark' ? 'text-gradient-warm' : 'text-gold-800'}>{word}</span>
         ) : (
           word
         )}
