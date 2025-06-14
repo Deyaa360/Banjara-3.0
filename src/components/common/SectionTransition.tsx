@@ -46,12 +46,16 @@ export const SectionTransition: React.FC<SectionTransitionProps> = ({
   // We'll use a single SVG for all transition types now
   
   return (
-    <div className={cn("w-full overflow-hidden", className)}>
+    <div className={cn("w-full overflow-hidden relative", className)}>
+      {/* Radial overlays to match the gallery section */}
+      <div className="absolute top-1/2 left-1/3 transform -translate-y-1/2 pointer-events-none" style={{ width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(121, 89, 57, 0.15) 0%, rgba(121, 89, 57, 0.05) 60%, transparent 100%)', filter: 'blur(120px)', opacity: 0.8, zIndex: 0 }} />
+      <div className="absolute top-0 right-0 transform -translate-y-1/4 pointer-events-none" style={{ width: '1000px', height: '1000px', background: 'radial-gradient(circle, rgba(230, 192, 122, 0.1) 0%, rgba(230, 192, 122, 0.03) 60%, transparent 100%)', filter: 'blur(150px)', opacity: 0.7, zIndex: 0 }} />
       <svg 
         className={`w-full ${height} ${invert ? 'transform rotate-180' : ''}`}
         xmlns="http://www.w3.org/2000/svg" 
         viewBox="0 0 1000 100"
         preserveAspectRatio="none"
+        style={{ display: 'block', position: 'relative', zIndex: 1 }}
       >
         <g fill={fillColor}>
           <path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path>
