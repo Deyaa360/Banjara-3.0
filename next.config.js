@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const isGithubPages = process.env.GITHUB_ACTIONS || false;
-const repoName = 'Banjara3.0'; // Your repo name
+const repoName = 'Banjara-3.0'; // Your repo name
 
 const nextConfig = {
   reactStrictMode: true,
