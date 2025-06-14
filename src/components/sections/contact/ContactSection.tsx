@@ -7,6 +7,7 @@ import {
 } from '@/components/common';
 import { motion, useInView } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
+import { getImagePath } from '@/lib/imagePath';
 
 interface ContactInfo {
   address: string;
@@ -364,7 +365,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <div 
                   className="absolute inset-0 w-full h-full opacity-20"
                   style={{ 
-                    backgroundImage: 'url("/form-pattern.png")',
+                    backgroundImage: `url('${getImagePath("/form-pattern.png")}')`,
                     backgroundRepeat: 'repeat',
                     backgroundSize: 'auto'
                   }}
