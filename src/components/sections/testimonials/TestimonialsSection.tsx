@@ -108,7 +108,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   return (
     <section className={`relative bg-walnut-400 overflow-hidden`}>
       {/* --- Wave Divider for Seamless Transition --- */}
-      <div className="w-full overflow-hidden mb-0 -mt-1" style={{ pointerEvents: 'none' }}>
+      <div className="w-full overflow-hidden mb-0" style={{ pointerEvents: 'none' }}>
         <svg 
           className="w-full h-16 sm:h-20 md:h-24 lg:h-32"
           xmlns="http://www.w3.org/2000/svg" 
