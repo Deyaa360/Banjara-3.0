@@ -9,7 +9,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials";
 import { CTASection } from "@/components/sections/cta";
 import { GallerySection } from "@/components/sections/gallery";
 import { ContactSection } from "@/components/sections/contact";
-import { LazySection, SectionTransition } from "@/components/common";
+import { LazySection } from "@/components/common";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 export default function Home() {
