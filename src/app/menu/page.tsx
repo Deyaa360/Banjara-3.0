@@ -19,7 +19,7 @@ interface MenuItem {
   description: string;
   price: number;
   isVegetarian: boolean;
-  spiceLevel?: number;
+  isSpicy: boolean;
   isSignature?: boolean;
   image: string;
 }
@@ -33,7 +33,8 @@ interface MenuData {
       };
 }
 
-// Optimized menu data structure
+// For all menu items, set isSpicy: true if they previously had a spiceLevel property, otherwise isSpicy: false
+// For demo: mix up isSpicy for Sharing Plates
 const menuData: MenuData = {
   "Sharing Plates": {
     "Vegetarian": [
@@ -44,7 +45,7 @@ const menuData: MenuData = {
         description: "Green gram, black chickpeas, potato, tamarind, mint yogurt mousse, and pomegranate caviar",
         price: 16,
         isVegetarian: true,
-        spiceLevel: 2,
+        isSpicy: false,
         isSignature: true,
         image: "/images/menu/MauryaJi Basket Chaat.png"
       },
@@ -55,7 +56,7 @@ const menuData: MenuData = {
         description: "Wheat ball, potato, yellow peas, green chilli, black salt, roasted cumin, mint, and black plum",
         price: 14,
         isVegetarian: true,
-        spiceLevel: 2,
+        isSpicy: true,
         image: "/images/menu/GUPCHUP (ODISHA).png"
       },
       {
@@ -65,7 +66,7 @@ const menuData: MenuData = {
         description: "Red beets, goat cheese, carrot, peanut, potato, and red habanero sauce",
         price: 18,
         isVegetarian: true,
-        spiceLevel: 1,
+        isSpicy: false,
         image: "/images/menu/BEET AND GOAT CHEESE CHOP (KOLKATA).png"
       },
       {
@@ -75,7 +76,7 @@ const menuData: MenuData = {
         description: "Hung yogurt, bell pepper, fried onion, cashew, Amul cheese, chilli, kataifi, and apricot chutney",
         price: 17,
         isVegetarian: true,
-        spiceLevel: 2,
+        isSpicy: true,
         image: "/images/menu/DAHI KE KEBAB (LUCKNOW).png"
       }
     ],
@@ -87,7 +88,7 @@ const menuData: MenuData = {
         description: "Minced chicken, soy sauce, ginger, chilli oil curry, and crispy nori",
         price: 19,
         isVegetarian: false,
-        spiceLevel: 3,
+        isSpicy: true,
         image: "/images/menu/JHOL MOMO (ARUNANCHAL PRADESH).png"
       },
       {
@@ -97,7 +98,7 @@ const menuData: MenuData = {
         description: "Bao bun, chicken, bell pepper, shallots, soy Guntur chilli, pickled red cabbage, scallion, and a rasam shot",
         price: 21,
         isVegetarian: false,
-        spiceLevel: 3,
+        isSpicy: false,
         image: "/images/menu/GUNTUR CHILLI CHICKEN BAO (ARUNANCHAL PRADESH).png"
       },
       {
@@ -107,7 +108,7 @@ const menuData: MenuData = {
         description: "Minced goat, vetiver, rosewater ghee, fried onion, cardamom, mint chutney, and warqi paratha",
         price: 24,
         isVegetarian: false,
-        spiceLevel: 2,
+        isSpicy: true,
         isSignature: true,
         image: "/images/menu/GALAUTI KEBAB (LUCKNOW).png"
       },
@@ -118,7 +119,7 @@ const menuData: MenuData = {
         description: "Chicken thigh, cream, butter, Amul cheese, and chaat masala",
         price: 22,
         isVegetarian: false,
-        spiceLevel: 2,
+        isSpicy: false,
         image: "/images/menu/ASLAM TIKKA (DELHI).png"
       },
       {
@@ -128,11 +129,10 @@ const menuData: MenuData = {
         description: "New Zealand lamb, masala onion, and walnut chutney",
         price: 28,
         isVegetarian: false,
-        spiceLevel: 2,
+        isSpicy: true,
         isSignature: true,
         image: "/images/menu/LAMB CHOP (KASHMIR).jpg"
-      },
-
+      }
     ]
   },
   "Large Plates": {
@@ -144,7 +144,7 @@ const menuData: MenuData = {
         description: "Spinach, dandelion green, garlic confit, and burrata",
         price: 22,
         isVegetarian: true,
-        spiceLevel: 1,
+        isSpicy: false,
         isSignature: true,
         image: "/images/menu/BURATA HAAK (KASHMIR).png"
       },
@@ -155,7 +155,7 @@ const menuData: MenuData = {
         description: "Whole wheat, roasted Bengal gram, and eggplant",
         price: 18,
         isVegetarian: true,
-        spiceLevel: 2,
+        isSpicy: false,
         image: "/images/menu/LITTI CHOKHA (BIHAR).png"
       },
       {
@@ -165,7 +165,7 @@ const menuData: MenuData = {
         description: "Black urad, cream, and butter",
         price: 19,
         isVegetarian: true,
-        spiceLevel: 1,
+        isSpicy: false,
         image: "/images/menu/DAL MAKHNI (DELHI).png"
       },
       {
@@ -175,7 +175,7 @@ const menuData: MenuData = {
         description: "Tomato gravy, butter powder, and nuts",
         price: 21,
         isVegetarian: true,
-        spiceLevel: 1,
+        isSpicy: false,
         image: "/images/menu/PANEER PINWHEEL MAKHNI (PUNJAB).png"
       }
     ],
@@ -187,19 +187,9 @@ const menuData: MenuData = {
         description: "Tomato gravy, nuts, cream, and butter powder",
         price: 28,
         isVegetarian: false,
-        spiceLevel: 1,
+        isSpicy: true,
         isSignature: true,
         image: "/images/menu/BUTTER CHICKEN (PUNJAB).png"
-      },
-      {
-        id: 20,
-        name: "Goan Fish Curry",
-        region: "Goa",
-        description: "Seabass, kokum, and coconut milk",
-        price: 26,
-        isVegetarian: false,
-        spiceLevel: 2,
-        image: "/images/menu/GOAN FISH CURRY.png"
       },
       {
         id: 21,
@@ -208,7 +198,7 @@ const menuData: MenuData = {
         description: "Smoked goat, Mathania chilli, and yogurt",
         price: 29,
         isVegetarian: false,
-        spiceLevel: 3,
+        isSpicy: true,
         isSignature: true,
         image: "/images/menu/LAAL MAAS (RAJHJASTHAN).png"
       },
@@ -219,7 +209,7 @@ const menuData: MenuData = {
         description: "Lamb shank, saffron, mint, and yogurt",
         price: 34,
         isVegetarian: false,
-        spiceLevel: 2,
+        isSpicy: false,
         isSignature: true,
         image: "/images/menu/NALLI BIRYANI (HYDERABAD).png"
       }
@@ -419,20 +409,9 @@ function MenuCategoryCard({ category, items, viewMode, switchToggled, activeCard
                       </div>
                     )}
                     <div className="flex items-center gap-2">
-                      <span className="text-gold-300 text-sm font-medium uppercase tracking-wider">Spice Level</span>
-                      <div className="flex items-center gap-1">
-                        {[...Array(3)].map((_, i) => (
-                          <Flame
-                            key={i}
-                            size={14}
-                            className={cn(
-                              i < (item.spiceLevel || 0)
-                                ? 'text-red-400'
-                                : 'text-gold-700/30'
-                            )}
-                          />
-                        ))}
-                      </div>
+                      {item.isSpicy && (
+                        <span title="Spicy" className="text-red-500 text-lg align-middle">🌶️</span>
+                      )}
                     </div>
                   </div>
 
@@ -562,20 +541,9 @@ function MenuCategoryCard({ category, items, viewMode, switchToggled, activeCard
                       ${item.price}
                     </span>
                     <div className="flex items-center gap-1">
-                      <span className="text-gold-300 text-xs font-medium uppercase tracking-wider">Spice</span>
-                      <div className="flex items-center gap-0.5">
-                        {[...Array(3)].map((_, i) => (
-                          <Flame
-                            key={i}
-                            size={12}
-                            className={cn(
-                              i < (item.spiceLevel || 0)
-                                ? 'text-gold-400'
-                                : 'text-gold-700/40'
-                            )}
-                          />
-                        ))}
-                      </div>
+                      {item.isSpicy && (
+                        <span title="Spicy" className="text-red-500 text-lg align-middle">🌶️</span>
+                      )}
                     </div>
                   </div>
                   
