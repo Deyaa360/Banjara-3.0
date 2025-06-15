@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Star, Leaf, Flame, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { SafeImage } from '@/components/common';
 import { cn } from "@/lib/utils";
 import { getImagePath } from "@/lib/imagePath";
 
@@ -340,85 +341,240 @@ const processedMenuData = processMenuImages(menuData);
 
 const categories: string[] = ["View All", ...Object.keys(menuData)];
 
-const GoldAccentDivider = () => (
-  <div className="flex items-center justify-center my-16">
-    <div className="h-px w-20 bg-gradient-to-r from-transparent to-gold-500/60" />
-    <div className="mx-4 flex items-center gap-2">
-      <div className="w-2 h-2 bg-gold-500 rounded-full shadow-lg" />
-      <div className="w-1 h-1 bg-gold-400 rounded-full" />
-      <div className="w-3 h-3 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full shadow-lg" />
-      <div className="w-1 h-1 bg-gold-400 rounded-full" />
-      <div className="w-2 h-2 bg-gold-500 rounded-full shadow-lg" />
-    </div>
-    <div className="h-px w-20 bg-gradient-to-l from-transparent to-gold-500/60" />
-  </div>
-);
-
-function MenuListItem({ item }: { item: MenuItem }) {
+function MenuCategoryCard({ category, items, viewMode, switchToggled, activeCardId, setActiveCardId, hoveredCardId, setHoveredCardId }: { 
+  category: string; 
+  items: MenuItem[]; 
+  viewMode: 'list' | 'visual';
+  switchToggled: boolean;
+  activeCardId: number | null;
+  setActiveCardId: (id: number | null) => void;
+  hoveredCardId: number | null;
+  setHoveredCardId: (id: number | null) => void;
+}) {
+  // Filter items if vegetarian toggle is on
+  const filteredItems = switchToggled ? items.filter(item => item.isVegetarian) : items;
+  
   return (
-    <div className="py-8 md:py-16 group">
-      {/* Top gold accent line */}
-      <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-gold-700/30 to-transparent mb-5 md:mb-7" />
-      <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-10">
-        {/* Main info and price in a row */}
-        <div className="flex-1 order-3 md:order-2 flex flex-col justify-center">
-          <div className="flex flex-row items-start md:items-center gap-3 md:gap-4 mb-2">
-            <div className="flex flex-col gap-1 flex-1">
-              <div className="flex items-center flex-wrap gap-2">
-                <span
-                  className="font-display font-extrabold text-xl md:text-4xl bg-gradient-to-r from-gold-200 via-gold-100 to-gold-400 bg-clip-text text-transparent tracking-tight leading-tight"
-                  style={{ letterSpacing: "-0.01em" }}
-                >
-                  {item.name}
-                </span>
-                <div className="flex items-center gap-1">
-                  {item.isVegetarian && (
-                    <Leaf className="w-4 h-4 text-green-500" />
-                  )}
-                  {item.isSignature && (
-                    <Star className="w-4 h-4 text-gold-400" />
-                  )}
+    <Card className="bg-charcoal-800/55 border-gold-400/30 shadow-2xl rounded-3xl overflow-hidden">
+      <CardContent className="relative z-10 p-8 md:p-12">
+        {/* Category Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gold-100 mb-2">
+              {category}
+            </h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full" />
+          </div>
+          
+
+        </div>
+
+        {/* Menu Items Display */}
+        {viewMode === 'list' ? (
+          /* List View - Grid Layout */
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {filteredItems.map((item) => (
+              <div key={item.id} className="group relative">
+                {/* Item Card */}
+                <div className="bg-charcoal-700/50 rounded-2xl p-6 border border-gold-400/20 hover:border-gold-400/40 transition-all duration-300 hover:shadow-xl">
+                  {/* Header with Name and Price */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center flex-wrap gap-3 mb-2">
+                        <h3 className="font-display font-bold text-xl md:text-2xl text-gold-100 tracking-tight leading-tight">
+                          {item.name}
+                        </h3>
+                        <div className="flex items-center gap-2">
+                          {item.isVegetarian && (
+                            <div className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center border border-green-500/30">
+                              <Leaf className="w-3 h-3 text-green-400" />
+                            </div>
+                          )}
+                          {item.isSignature && (
+                            <div className="w-6 h-6 bg-gold-400/20 rounded-full flex items-center justify-center border border-gold-400/30">
+                              <Star className="w-3 h-3 text-gold-400" />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="w-12 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full mb-3" />
+                    </div>
+                    <div className="text-right ml-6">
+                      <span className="text-2xl md:text-3xl font-bold text-gold-100">
+                        ${item.price}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Region and Spice Level */}
+                  <div className="flex flex-wrap items-center gap-6 mb-4">
+                    {item.region && (
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 bg-gold-400/20 rounded-full flex items-center justify-center border border-gold-400/30">
+                          <MapPin className="w-2.5 h-2.5 text-gold-400" />
+                        </div>
+                        <span className="text-gold-300 text-sm font-medium uppercase tracking-wider">
+                          {item.region}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <span className="text-gold-300 text-sm font-medium uppercase tracking-wider">Spice Level</span>
+                      <div className="flex items-center gap-1">
+                        {[...Array(3)].map((_, i) => (
+                          <Flame
+                            key={i}
+                            size={14}
+                            className={cn(
+                              i < (item.spiceLevel || 0)
+                                ? 'text-red-400'
+                                : 'text-gold-700/30'
+                            )}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-gold-200 text-base leading-relaxed font-light font-serif">
+                    {item.description}
+                  </p>
                 </div>
               </div>
-              <div className="w-10 md:w-14 h-0.5 bg-gradient-to-r from-gold-400/60 to-gold-700/10 rounded-full mt-1 mb-0" />
-            </div>
-            {/* Price, right-aligned with the title */}
-            <span className="font-serif text-base md:text-lg font-normal text-gold-200/40 tracking-wide opacity-60 text-right min-w-[50px] md:min-w-[80px] mt-1 md:mt-0">
-              ${item.price}
-            </span>
+            ))}
           </div>
-          <div className="flex flex-wrap items-center gap-3 md:gap-4 mt-1 mb-2">
-            <div className="flex items-center gap-1.5">
-              <span className="text-gold-300 text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.18em]">Spice</span>
-              <div className="flex items-center gap-0.5">
-                {[...Array(3)].map((_, i) => (
-                  <Flame
-                    key={i}
-                    size={12}
-                    className={cn(
-                      i < (item.spiceLevel || 0)
-                        ? 'text-gold-400'
-                        : 'text-gold-700/30'
-                    )}
+        ) : (
+          /* Visual View - Interactive Image Cards */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+            {filteredItems.map((item) => (
+              <div
+                key={item.id}
+                className={
+                  cn(
+                    "menu-visual-card relative h-[400px] md:h-[540px] rounded-xl md:rounded-[2rem] overflow-hidden shadow-2xl bg-charcoal-900 border transition-all duration-500 flex flex-col justify-end cursor-pointer",
+                    activeCardId === item.id ? "ring-2 ring-gold-400 border-gold-400" : "border-gold-700/30"
+                  )
+                }
+                tabIndex={0}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveCardId(activeCardId === item.id ? null : item.id);
+                }}
+                onMouseEnter={() => {
+                  const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
+                  if (isDesktop) {
+                    setActiveCardId(item.id);
+                    setHoveredCardId(item.id);
+                  }
+                }}
+                onMouseLeave={() => {
+                  const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
+                  if (isDesktop && hoveredCardId === item.id) {
+                    setActiveCardId(null);
+                    setHoveredCardId(null);
+                  }
+                }}
+              >
+                {/* Image with overlays */}
+                <div className="absolute inset-0 w-full h-full">
+                  <SafeImage
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    className={
+                      cn(
+                        "object-cover transition-transform duration-700",
+                        activeCardId === item.id ? "scale-110 brightness-125" : "scale-100 brightness-75"
+                      )
+                    }
+                    sizes="(max-width: 1024px) 100vw, 400px"
                   />
-                ))}
+                  {/* Gradient overlays */}
+                  <div
+                    className={
+                      cn(
+                        "absolute inset-0 transition-all duration-500 bg-gradient-to-b",
+                        activeCardId === item.id
+                          ? "from-black/60 via-black/20 to-black/60"
+                          : "from-black/80 via-black/40 to-black/80"
+                      )
+                    }
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-gold-400/10 via-transparent to-gold-600/10 pointer-events-none" />
+                </div>
+
+                {/* Decorative Corners */}
+                <div className="absolute top-6 right-6 w-16 h-16 border-t-2 border-r-2 border-gold-400/30 rounded-tr-2xl" />
+                <div className="absolute bottom-6 left-6 w-16 h-16 border-b-2 border-l-2 border-gold-400/30 rounded-bl-2xl" />
+
+                {/* Content Overlay with Blur Effect */}
+                <div className={
+                  cn(
+                    "relative z-10 flex flex-col items-center text-center px-6 py-8 w-full transition-all duration-300",
+                    activeCardId === item.id
+                      ? "opacity-20 blur-sm pointer-events-none select-none text-gold-50 drop-shadow-[0_2px_16px_rgba(255,215,0,0.25)] brightness-125"
+                      : "opacity-100 blur-0 pointer-events-auto select-auto text-gold-100/95 drop-shadow-lg brightness-100"
+                  )
+                }>
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <div className="h-px w-8 bg-gold-400/60" />
+                    {item.region && (
+                      <span className="text-gold-300 text-xs font-medium tracking-wider uppercase font-serif">
+                        {item.region}
+                      </span>
+                    )}
+                    <div className="h-px w-8 bg-gold-400/60" />
+                  </div>
+                  
+                  <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-2 flex items-center justify-center gap-2">
+                    {item.name}
+                    {item.isVegetarian && (
+                      <Leaf className="w-4 h-4 text-green-400" />
+                    )}
+                    {item.isSignature && (
+                      <Star className="w-4 h-4 text-gold-400" />
+                    )}
+                  </h3>
+                  
+                  <div className="flex items-center justify-center gap-4 mb-3">
+                    <span className="font-serif text-lg font-bold text-gold-200">
+                      ${item.price}
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-gold-300 text-xs font-medium uppercase tracking-wider">Spice</span>
+                      <div className="flex items-center gap-0.5">
+                        {[...Array(3)].map((_, i) => (
+                          <Flame
+                            key={i}
+                            size={12}
+                            className={cn(
+                              i < (item.spiceLevel || 0)
+                                ? 'text-gold-400'
+                                : 'text-gold-700/40'
+                            )}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gold-100 text-sm font-serif font-light leading-relaxed max-w-xs mx-auto opacity-90">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-            </div>
-            {item.region && (
-              <div className="flex items-center gap-1 text-gold-400 text-[10px] md:text-[11px] uppercase font-semibold tracking-[0.18em]">
-                <MapPin className="w-3 h-3" />
-                {item.region}
-              </div>
-            )}
+            ))}
           </div>
-          <div className="text-gold-100/95 text-sm md:text-xl font-serif font-light italic mt-2 md:mt-3 leading-relaxed tracking-wide max-w-2xl">
-            {item.description}
+        )}
+
+        {filteredItems.length === 0 && (
+          <div className="text-center text-gold-400 py-10 font-serif text-lg opacity-70">
+            No vegetarian items found in this category.
           </div>
-        </div>
-      </div>
-      {/* Bottom gold accent line */}
-      <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-gold-700/30 to-transparent mt-6 md:mt-8" />
-    </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 
@@ -428,12 +584,64 @@ export default function MenuPage() {
   const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<"list" | "visual">("list");
   const [switchToggled, setSwitchToggled] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [showHeader, setShowHeader] = useState<boolean>(true);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const lastScrollY = React.useRef(0);
+
+  // Handle mobile detection on client side
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Track header visibility for sticky tabs positioning
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY >= 50) {
+        setIsScrolled(true);
+        
+        // Hide header when scrolling down, show when scrolling up
+        // Add a small threshold to prevent flickering
+        if (currentScrollY > lastScrollY.current + 5) {
+          setShowHeader(false); // scrolling down - hide header
+        } else if (currentScrollY < lastScrollY.current - 5) {
+          setShowHeader(true); // scrolling up - show header
+        }
+      } else {
+        setIsScrolled(false);
+        setShowHeader(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Deactivate card on scroll or tap away
   React.useEffect(() => {
-    const handleScroll = () => setActiveCardId(null);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (activeCardId !== null) setActiveCardId(null);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     const handleClick = (e: MouseEvent) => {
-      // Only deactivate if click is outside any card
       if (!(e.target as HTMLElement).closest('.menu-visual-card')) {
         setActiveCardId(null);
       }
@@ -444,367 +652,155 @@ export default function MenuPage() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousedown', handleClick);
     };
-  }, []);
-
-  // Helper to render a category or subcategory as a text list
-  function renderMenuList(items: MenuItem[]) {
-    // Filter items if vegetarian toggle is on
-    const filteredItems = switchToggled ? items.filter(item => item.isVegetarian) : items;
-    
-    return (
-      <div className="divide-y divide-gold-700/20">
-        {filteredItems.map((item) => (
-          <MenuListItem key={item.id} item={item} />
-        ))}
-        {items.length === 0 && (
-          <div className="text-center text-gold-400 py-10 font-serif text-lg opacity-70">No items found.</div>
-        )}
-      </div>
-    );
-  }
-
-  // Helper to render visual mode cards
-  function renderMenuVisualCards(
-    items: MenuItem[],
-    activeCardId: number | null,
-    setActiveCardId: (id: number | null) => void,
-    hoveredCardId: number | null,
-    setHoveredCardId: (id: number | null) => void
-  ) {
-    // Filter items if vegetarian toggle is on
-    const filteredItems = switchToggled ? items.filter(item => item.isVegetarian) : items;
-    
-    if (filteredItems.length === 0) {
-      return <div className="text-center text-gold-400 py-10 font-serif text-lg opacity-70">No items found.</div>;
-    }
-    // Only activate on hover for desktop
-    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
-
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-        {filteredItems.map((item) => (
-          <div
-            key={item.id}
-            id={`menu-card-${item.id}`}
-            className={
-              cn(
-                "menu-visual-card relative h-[400px] md:h-[540px] rounded-xl md:rounded-[2rem] overflow-hidden shadow-2xl bg-charcoal-900 border transition-all duration-500 flex flex-col justify-end cursor-pointer",
-                activeCardId === item.id ? "ring-2 ring-gold-400 border-gold-400" : "border-gold-700/30"
-              )
-            }
-            tabIndex={0}
-            onClick={(e) => {
-              e.stopPropagation();
-              setActiveCardId(activeCardId === item.id ? null : item.id);
-            }}
-            onMouseEnter={() => {
-              if (isDesktop) {
-                setActiveCardId(item.id);
-                setHoveredCardId(item.id);
-              }
-            }}
-            onMouseLeave={() => {
-              if (isDesktop && hoveredCardId === item.id) {
-                setActiveCardId(null);
-                setHoveredCardId(null);
-              }
-            }}
-          >
-            {/* Image with overlays */}
-            <div className="absolute inset-0 w-full h-full">
-              <Image
-                src={item.image}
-                alt={item.name}
-                fill
-                className={
-                  cn(
-                    "object-cover transition-transform duration-700",
-                    activeCardId === item.id ? "scale-110 brightness-125" : "scale-100 brightness-75"
-                  )
-                }
-                sizes="(max-width: 1024px) 100vw, 400px"
-              />
-              {/* Gradient overlays */}
-              <div
-                className={
-                  cn(
-                    "absolute inset-0 transition-all duration-500 bg-gradient-to-b",
-                    activeCardId === item.id
-                      ? "from-black/60 via-black/20 to-black/60"
-                      : "from-black/80 via-black/40 to-black/80"
-                  )
-                }
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-gold-400/10 via-transparent to-gold-600/10 pointer-events-none" />
-            </div>
-            {/* Decorative Corners */}
-            <div className="absolute top-6 right-6 w-16 h-16 border-t-2 border-r-2 border-gold-400/30 rounded-tr-2xl" />
-            <div className="absolute bottom-6 left-6 w-16 h-16 border-b-2 border-l-2 border-gold-400/30 rounded-bl-2xl" />
-            {/* Content Overlay */}
-            <div className={
-              cn(
-                "relative z-10 flex flex-col items-center text-center px-6 py-8 w-full transition-all duration-300",
-                activeCardId === item.id
-                  ? "opacity-20 blur-sm pointer-events-none select-none text-gold-50 drop-shadow-[0_2px_16px_rgba(255,215,0,0.25)] brightness-125"
-                  : "opacity-100 blur-0 pointer-events-auto select-auto text-gold-100/95 drop-shadow-lg brightness-100"
-              )
-            }>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-px w-8 bg-gold-400" />
-                {item.region && (
-                  <span className="text-gold-400 text-xs font-medium tracking-wider uppercase font-serif drop-shadow-lg transition-all duration-300">
-                    {item.region}
-                  </span>
-                )}
-                <div className="h-px w-8 bg-gold-400" />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-2 drop-shadow-lg flex items-center justify-center gap-2 transition-all duration-300">
-                {item.name}
-                {item.isVegetarian && (
-                  <Leaf className="w-5 h-5 text-green-400" />
-                )}
-                {item.isSignature && (
-                  <Star className="w-5 h-5 text-gold-400" />
-                )}
-              </h3>
-              <div className="flex items-center justify-center gap-2 mb-2 transition-all duration-300">
-                <span className="font-serif text-base font-normal text-gold-200/80 tracking-wide opacity-80">${item.price}</span>
-                <span className="text-gold-300 text-xs font-semibold uppercase tracking-[0.18em] ml-2">Spice</span>
-                <div className="flex items-center gap-0.5">
-                  {[...Array(3)].map((_, i) => (
-                    <Flame
-                      key={i}
-                      size={15}
-                      className={cn(
-                        i < (item.spiceLevel || 0)
-                          ? 'text-gold-400'
-                          : 'text-gold-700/30'
-                      )}
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="text-gold-100/95 text-base md:text-lg font-serif font-light italic leading-relaxed tracking-wide max-w-xs mb-6 drop-shadow-lg transition-all duration-300">
-                {item.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  }, [activeCardId]);
 
   return (
-    <>
-      <main className="min-h-screen bg-charcoal-900 relative overflow-x-hidden">
-        {/* Decorative Background Overlays - removed overlays for clear texture */}
-        {/* Hero Section - Minimal Menu Banner */}
-        <section className="relative min-h-[20vh] flex items-center justify-center overflow-hidden bg-transparent pt-24 md:pt-32">
-          {/* Decorative gold accent */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-40 bg-gradient-to-br from-gold-400/30 to-transparent rounded-full blur-2xl z-0 pointer-events-none" />
-          <div className="relative z-10 max-w-2xl mx-auto text-center px-6 py-10">
-            <div className="inline-flex items-center gap-3 mb-2">
-              <div className="h-px w-10 bg-gradient-to-r from-transparent to-gold-400" />
-              <span className="text-gold-400 font-display text-5xl md:text-7xl font-bold tracking-[0.2em] uppercase drop-shadow-lg">
-                Menu
-              </span>
-              <div className="h-px w-10 bg-gradient-to-l from-transparent to-gold-400" />
-            </div>
-            <p className="text-base md:text-lg text-gold-100 font-light leading-relaxed max-w-xl mx-auto mt-2 font-serif">
-              Browse by category, read about each dish, and let us know if you have any questions or preferences.
-            </p>
-          </div>
-          {/* Visual Mode Switch - hidden on mobile, visible on desktop */}
-          <div className="hidden md:flex absolute top-6 right-6 z-[100] items-center gap-2">
-            <span className="text-gold-300 text-sm font-serif mr-1">Visual Mode</span>
-            <button
-              type="button"
-              aria-pressed={viewMode === 'visual'}
-              onClick={() => setViewMode(viewMode === 'visual' ? 'list' : 'visual')}
-              className={
-                'relative w-10 h-5 rounded-full transition-colors duration-300 focus:outline-none ' +
-                (viewMode === 'visual' ? 'bg-gradient-to-r from-gold-400 to-gold-500' : 'bg-gold-700/30')
-              }
-              style={{ outline: 'none' }}
-            >
-              <span
-                className={
-                  'absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform duration-300 bg-gold-200 transform ' +
-                  (viewMode === 'visual' ? 'translate-x-5' : 'translate-x-0')
-                }
-              ></span>
-            </button>
-            <span className="text-xs text-gold-400 font-serif ml-2">(Slower)</span>
-          </div>
-        </section>
-        {/* Redesigned tab bar for categories */}
-        <section className="bg-charcoal-900/95 backdrop-blur-lg border-b border-gold-700/30 sticky top-0 z-40 shadow-xl">
-          {/* Mobile view - Tabs as scrollable row with toggle at right */}
-          <div className="md:hidden container mx-auto px-2 py-3">
-            <div className="flex items-center justify-between gap-3 mb-2">
-              {/* Vegetarian filter toggle for mobile - moved to left */}
-              <div className="flex items-center gap-2">
+    <main className="min-h-screen bg-charcoal-900 overflow-x-hidden">
+      {/* Sticky Tab Navigation - At top */}
+      <div 
+        className="fixed left-0 right-0 bg-charcoal-900/95 backdrop-blur-lg border-b border-gold-700/30 shadow-xl z-30"
+        style={{
+          top: showHeader ? '0px' : '0px',
+          paddingTop: showHeader ? (isMobile ? '100px' : '140px') : '20px',
+          transition: 'padding-top 0.3s ease-in-out'
+        }}
+      >
+        <div className="container mx-auto px-6 py-6">
+          {/* Mobile Layout */}
+          <div className="md:hidden space-y-4">
+            {/* Controls for Mobile */}
+            <div className="flex items-center justify-between gap-4">
+              {/* Vegetarian Filter */}
+              <div className="flex items-center gap-3">
                 <Leaf className={`w-4 h-4 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
-                <span className={`text-xs font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>
-                  Veg Only
+                <span className={`text-sm font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>
+                  Vegetarian Only
                 </span>
-                <button
-                  type="button"
-                  className={`relative w-10 h-5 rounded-full transition-colors duration-300 focus:outline-none ${
-                    switchToggled ? 'bg-gradient-to-r from-green-700 to-green-500' : 'bg-gold-700/30'
+                <Switch
+                  checked={switchToggled}
+                  onCheckedChange={setSwitchToggled}
+                  className={`border-2 data-[state=checked]:bg-green-500/80 data-[state=unchecked]:bg-charcoal-700 ${
+                    switchToggled ? 'border-green-400' : 'border-gold-600'
                   }`}
-                  style={{ outline: 'none' }}
-                  onClick={() => setSwitchToggled(!switchToggled)}
-                  aria-label="Show vegetarian items only"
-                >
-                  <span
-                    className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full shadow-md transition-transform duration-300 bg-gold-200 transform ${
-                      switchToggled ? 'translate-x-5' : 'translate-x-0'
-                    }`}
-                  ></span>
-                </button>
+                  style={{
+                    boxShadow: 'none',
+                    outline: 'none'
+                  }}
+                />
               </div>
-              
-              {/* View mode toggle for mobile */}
-              <div className="flex items-center gap-2">
-                <span className="text-gold-300 text-xs font-serif">Visual</span>
-                <button
-                  type="button"
-                  aria-pressed={viewMode === 'visual'}
-                  onClick={() => setViewMode(viewMode === 'visual' ? 'list' : 'visual')}
-                  className={
-                    'relative w-10 h-5 rounded-full transition-colors duration-300 focus:outline-none ' +
-                    (viewMode === 'visual' ? 'bg-gradient-to-r from-gold-400 to-gold-500' : 'bg-gold-700/30')
-                  }
-                  style={{ outline: 'none' }}
-                >
-                  <span
-                    className={
-                      'absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform duration-300 bg-gold-200 transform ' +
-                      (viewMode === 'visual' ? 'translate-x-5' : 'translate-x-0')
-                    }
-                  ></span>
-                </button>
-              </div>
+
+              {/* View Mode Toggle */}
+              <ToggleGroup
+                type="single"
+                value={viewMode}
+                onValueChange={(value) => value && setViewMode(value as "list" | "visual")}
+                className="bg-charcoal-800/50 rounded-lg p-1"
+              >
+                <ToggleGroupItem value="list" size="sm" className="text-xs">
+                  List
+                </ToggleGroupItem>
+                <ToggleGroupItem value="visual" size="sm" className="text-xs">
+                  Visual
+                </ToggleGroupItem>
+              </ToggleGroup>
             </div>
-            
-            {/* Custom scroll container with elegant indicator */}
-            <div className="relative mt-2">
-              {/* Ultra-thin elegant scroll indicator with animation */}
-              <div className="absolute bottom-0 left-0 w-full overflow-hidden h-[1px]">
-                <div className="absolute bottom-0 left-0 right-0 h-[0.5px] bg-gradient-to-r from-transparent via-gold-400/10 to-transparent"></div>
-                <div className="absolute bottom-0 left-[-100%] h-[0.5px] w-[200%] animate-shine">
-                  <div className="h-full w-1/3 bg-gradient-to-r from-transparent via-gold-400/30 to-transparent"></div>
-                </div>
-              </div>
-              
-              {/* Scrollable tabs with hidden native scrollbar */}
-              <div className="flex overflow-x-auto no-scrollbar"
-                style={{ WebkitOverflowScrolling: 'touch', paddingBottom: '6px' }}
-                onScroll={(e) => e.stopPropagation()}>
-                <div className="flex gap-3 pb-1 pl-1" style={{ paddingRight: '20px' }}>
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant="ghost"
-                    className={cn(
-                      "px-3 py-2 rounded-xl text-sm font-medium whitespace-nowrap border transition-all duration-300 tracking-wide font-serif flex-shrink-0",
-                      activeTab === category
-                        ? "bg-gradient-to-r from-gold-500 to-gold-600 text-charcoal-900 border-gold-500 shadow-lg"
-                        : "bg-charcoal-800 text-gold-400 border-gold-700/40 hover:bg-charcoal-700 hover:text-gold-300"
-                    )}
-                    onClick={() => setActiveTab(category)}
-                  >
-                    {category}
-                  </Button>
-                ))}
-              </div>
-            </div>
-            </div>
-          </div>
-          
-          {/* Desktop view - Tabs as flex row with toggle at right */}
-          <div className="hidden md:flex container mx-auto px-6 py-4 items-center justify-between">
-            <div className="flex gap-3 flex-wrap">
+
+            {/* Category Tabs for Mobile */}
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
               {categories.map((category) => (
-                <Button
+                <button
                   key={category}
-                  variant="ghost"
-                  className={cn(
-                    "px-5 py-2.5 rounded-xl text-base font-semibold whitespace-nowrap border-2 transition-all duration-300 tracking-wide font-serif",
-                    activeTab === category
-                      ? "bg-gradient-to-r from-gold-500 to-gold-600 text-charcoal-900 border-gold-500 shadow-lg scale-105"
-                      : "bg-charcoal-800 text-gold-400 border-gold-700/40 hover:bg-charcoal-700 hover:text-gold-300"
-                  )}
                   onClick={() => setActiveTab(category)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                    activeTab === category
+                      ? 'bg-gold-500 text-charcoal-900'
+                      : 'bg-charcoal-800/50 text-gold-300 hover:bg-charcoal-700/70 hover:text-gold-200'
+                  }`}
                 >
                   {category}
-                </Button>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden md:flex items-center justify-between gap-8">
+            {/* Category Tabs */}
+            <div className="flex gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveTab(category)}
+                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeTab === category
+                      ? 'bg-gold-500 text-charcoal-900'
+                      : 'bg-charcoal-800/50 text-gold-300 hover:bg-charcoal-700/70 hover:text-gold-200'
+                  }`}
+                >
+                  {category}
+                </button>
               ))}
             </div>
 
-            {/* Vegetarian filter toggle for desktop */}
-            <div className="flex items-center gap-3 ml-6">
-              <Leaf className={`w-4 h-4 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
-              <span className={`text-sm font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>
-                Vegetarian Only
-              </span>
-              <button
-                type="button"
-                className={`relative w-10 h-5 rounded-full transition-colors duration-300 focus:outline-none ${
-                  switchToggled ? 'bg-gradient-to-r from-green-700 to-green-500' : 'bg-gold-700/30'
-                }`}
-                style={{ outline: 'none' }}
-                onClick={() => setSwitchToggled(!switchToggled)}
-                aria-label="Show vegetarian items only"
-              >
-                <span
-                  className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full shadow-md transition-transform duration-300 bg-gold-200 transform ${
-                    switchToggled ? 'translate-x-5' : 'translate-x-0'
+            {/* Controls */}
+            <div className="flex items-center gap-6">
+              {/* Vegetarian Filter */}
+              <div className="flex items-center gap-3">
+                <Leaf className={`w-5 h-5 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
+                <span className={`text-sm font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>
+                  Vegetarian Only
+                </span>
+                <Switch
+                  checked={switchToggled}
+                  onCheckedChange={setSwitchToggled}
+                  className={`border-2 data-[state=checked]:bg-green-500/80 data-[state=unchecked]:bg-charcoal-700 ${
+                    switchToggled ? 'border-green-400' : 'border-gold-600'
                   }`}
-                ></span>
-              </button>
+                  style={{
+                    boxShadow: 'none',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+
+              {/* View Mode Toggle */}
+              <ToggleGroup
+                type="single"
+                value={viewMode}
+                onValueChange={(value) => value && setViewMode(value as "list" | "visual")}
+                className="bg-charcoal-800/50 rounded-lg p-1"
+              >
+                <ToggleGroupItem value="list" className="text-sm">
+                  List
+                </ToggleGroupItem>
+                <ToggleGroupItem value="visual" className="text-sm">
+                  Visual
+                </ToggleGroupItem>
+              </ToggleGroup>
             </div>
           </div>
-        </section>
-        {/* Menu Items Section - unified background, no dividers */}
-        <section id="menu" className="py-10 md:py-20 relative z-10">
-          <div className="container mx-auto px-4 md:px-6">
-            {activeTab === "View All" ? (
-              Object.entries(processedMenuData).map(([cat, data]) => {
-                let items: MenuItem[] = [];
-                if (Array.isArray(data)) items = data;
-                else items = Object.values(data).flat();
-                
-                if (!items.length) return null;
-                return (
-                  <div key={cat} className="mb-20">
-                    {/* Section Title with Gold PNG Divider, vertically centered */}
-                    <div className="flex flex-col items-center mb-8">
-                      <h2 className="font-serif text-3xl md:text-4xl font-light text-gold-100 text-center mb-2">
-                        {cat}
-                      </h2>
-                      <img
-                        src={getImagePath("/images/line-divider.png")}
-                        alt=""
-                        className="mx-auto"
-                        style={{
-                          width: "min(200px, 80vw)",
-                          height: "auto"
-                        }}
-                      />
-                    </div>
-                    {/* Show correct view mode */}
-                    {viewMode === "list"
-                      ? renderMenuList(items)
-                      : renderMenuVisualCards(items, activeCardId, setActiveCardId, hoveredCardId, setHoveredCardId)}
-                  </div>
-                );
-              })
-            ) : (
-              (() => {
-                const data = processedMenuData[activeTab];
-                if (!data) return null;
+        </div>
+      </div>
+
+
+
+      {/* Menu Items Section */}
+      <section className="relative z-10" style={{ paddingTop: '220px' }}>
+        
+        {/* Background Pattern - covers the whole menu area, now with even higher opacity */}
+        <div 
+          className="pointer-events-none absolute inset-0 w-full h-full opacity-40 z-0"
+          style={{ 
+            backgroundImage: `url('${getImagePath("/form-pattern.png")}')`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: 'auto'
+          }}
+        />
+        
+        <div className="container mx-auto px-6 relative z-10 py-16 md:py-24">
+          {activeTab === "View All" ? (
+            <div className="space-y-16">
+              {Object.entries(processedMenuData).map(([category, data]) => {
                 let items: MenuItem[] = [];
                 if (Array.isArray(data)) {
                   items = data;
@@ -813,14 +809,51 @@ export default function MenuPage() {
                 }
                 
                 if (!items.length) return null;
-                return viewMode === "list"
-                  ? renderMenuList(items)
-                  : renderMenuVisualCards(items, activeCardId, setActiveCardId, hoveredCardId, setHoveredCardId);
-              })()
-            )}
-          </div>
-        </section>
-      </main>
-    </>
+                
+                return (
+                  <MenuCategoryCard 
+                    key={category} 
+                    category={category} 
+                    items={items}
+                    viewMode={viewMode}
+                    switchToggled={switchToggled}
+                    activeCardId={activeCardId}
+                    setActiveCardId={setActiveCardId}
+                    hoveredCardId={hoveredCardId}
+                    setHoveredCardId={setHoveredCardId}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            (() => {
+              const data = processedMenuData[activeTab];
+              if (!data) return null;
+              let items: MenuItem[] = [];
+              if (Array.isArray(data)) {
+                items = data;
+              } else {
+                items = Object.values(data).flat();
+              }
+
+              if (!items.length) return null;
+              return (
+                <MenuCategoryCard 
+                  key={activeTab} 
+                  category={activeTab} 
+                  items={items}
+                  viewMode={viewMode}
+                  switchToggled={switchToggled}
+                  activeCardId={activeCardId}
+                  setActiveCardId={setActiveCardId}
+                  hoveredCardId={hoveredCardId}
+                  setHoveredCardId={setHoveredCardId}
+                />
+              );
+            })()
+          )}
+        </div>
+      </section>
+    </main>
   );
 }
