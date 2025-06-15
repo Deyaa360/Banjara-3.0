@@ -38,7 +38,22 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
     : images.filter(img => img.category === activeCategory);
 
   return (
-    <section className="py-16 sm:py-24 bg-charcoal-900">
+    <section className="pb-16 sm:pb-24 bg-charcoal-900">
+      {/* --- Wave Divider for Seamless Transition --- */}
+      <div className="w-full overflow-hidden mb-0" style={{ pointerEvents: 'none' }}>
+        <svg 
+          className="w-full h-16 sm:h-20 md:h-24 lg:h-32"
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1000 100"
+          preserveAspectRatio="none"
+          style={{ display: 'block', position: 'relative', zIndex: 1, pointerEvents: 'auto' }}
+        >
+          <g fill="#bc9d82">
+            <path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path>
+          </g>
+        </svg>
+      </div>
+
       <ResponsiveContainer>
         {/* Header */}
         <motion.div 

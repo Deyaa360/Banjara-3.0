@@ -9,7 +9,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials";
 import { CTASection } from "@/components/sections/cta";
 import { GallerySection } from "@/components/sections/gallery";
 import { ContactSection } from "@/components/sections/contact";
-import { LazySection, SectionTransition } from "@/components/common";
+import { LazySection } from "@/components/common";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 export default function Home() {
@@ -194,14 +194,6 @@ export default function Home() {
           decorative={true}
         />
 
-        {/* Testimonials Section */}
-        <LazySection id="testimonials-section">
-          <TestimonialsSection testimonials={testimonials} />
-        </LazySection>
-      </ThemeProvider>
-
-      {/* Act III: Action-Oriented Conclusion (Dark Theme) */}
-      <ThemeProvider themeMode="dark">
         {/* Gallery Section */}
         <LazySection id="gallery-section">
           <GallerySection 
@@ -210,6 +202,14 @@ export default function Home() {
           />
         </LazySection>
 
+        {/* Testimonials Section */}
+        <LazySection id="testimonials-section">
+          <TestimonialsSection testimonials={testimonials} />
+        </LazySection>
+      </ThemeProvider>
+
+      {/* Act III: Action-Oriented Conclusion (Dark Theme) */}
+      <ThemeProvider themeMode="dark">
         {/* CTA Section */}
         <LazySection id="cta-section">
           <CTASection 

@@ -1,44 +1,29 @@
-// Elegant, accessible Switch component (shadcn/ui style)
+"use client"
+
 import * as React from "react"
-import { Leaf } from "lucide-react";
+import * as SwitchPrimitives from "@radix-ui/react-switch"
 
-export interface SwitchProps extends React.ComponentPropsWithoutRef<"button"> {
-  checked?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
-}
+import { cn } from "@/lib/utils"
 
-const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ checked = false, onCheckedChange, disabled, className, ...props }, ref) => {
-    return (
-      <button
-        type="button"
-        role="switch"
-        aria-checked={checked}
-        disabled={disabled}
-        ref={ref}
-        tabIndex={0}
-        className={[
-          "relative inline-flex items-center w-10 h-6 p-0.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2",
-          checked ? "bg-green-500/80" : "bg-pepper-800/60",
-          disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
-          className || ""
-        ].join(" ")}
-        onClick={() => !disabled && onCheckedChange && onCheckedChange(!checked)}
-        {...props}
-      >
-        <span
-          className={[
-            "inline-flex items-center justify-center h-5 w-5 rounded-full transition-transform duration-200",
-            checked ? "translate-x-4" : "translate-x-0"
-          ].join(" ")}
-          style={{ background: "transparent" }}
-        >
-          <Leaf className={checked ? "text-green-900" : "text-pepper-600"} size={18} strokeWidth={2.2} />
-        </span>
-      </button>
-    );
-  }
-);
-Switch.displayName = "Switch";
+const Switch = React.forwardRef<
+  React.ElementRef<typeof SwitchPrimitives.Root>,
+  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
+>(({ className, ...props }, ref) => (
+  <SwitchPrimitives.Root
+    className={cn(
+      "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-900 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-charcoal-700",
+      className
+    )}
+    {...props}
+    ref={ref}
+  >
+    <SwitchPrimitives.Thumb
+      className={cn(
+        "pointer-events-none block h-5 w-5 rounded-full bg-gold-300 shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
+      )}
+    />
+  </SwitchPrimitives.Root>
+))
+Switch.displayName = SwitchPrimitives.Root.displayName
 
 export { Switch }

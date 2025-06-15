@@ -48,8 +48,31 @@ const Header = () => {
       lastScrollY.current = currentScrollY;
     };
 
+    // Handle custom hide/show header events from card clicks
+    const handleHideHeader = (event: CustomEvent) => {
+      if (event.detail?.source === 'cardClick') {
+        console.log('📱 Header received hide event from card click');
+        setShowHeader(false);
+        setIsScrolled(true);
+      }
+    };
+
+    const handleShowHeader = (event: CustomEvent) => {
+      if (event.detail?.source === 'cardClick') {
+        console.log('📱 Header received show event from card click');
+        setShowHeader(true);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('hideHeader', handleHideHeader as EventListener);
+    window.addEventListener('showHeader', handleShowHeader as EventListener);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hideHeader', handleHideHeader as EventListener);
+      window.removeEventListener('showHeader', handleShowHeader as EventListener);
+    };
   }, []);
 
   // Close menu when clicking on a link

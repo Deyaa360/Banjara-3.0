@@ -9,5 +9,5 @@ export { default as ResponsiveContainer } from './ResponsiveContainer';
 export { default as SafeImage } from './SafeImage';
 export { default as SectionDivider } from './SectionDivider';
 export { default as SectionHeader } from './SectionHeader';
-export { default as SectionTransition } from './SectionTransition';
+
 export { default as StaticMap } from './StaticMap';
