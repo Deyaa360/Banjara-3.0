@@ -222,6 +222,7 @@ const menuData: MenuData = {
       description: "Traditional garlic-infused bread",
       price: 6,
       isVegetarian: true,
+      isSpicy: false,
       image: "/images/menu/GARLIC NAAN.png"
     },
     {
@@ -230,6 +231,7 @@ const menuData: MenuData = {
       description: "Spiced red chilli naan",
       price: 7,
       isVegetarian: true,
+      isSpicy: true,
       image: "/images/menu/LAAL NAAN.png"
     },
     {
@@ -238,6 +240,7 @@ const menuData: MenuData = {
       description: "Layered flaky bread",
       price: 6,
       isVegetarian: true,
+      isSpicy: false,
       image: "/images/menu/LACCHA PARATHA.png"
     },
     {
@@ -246,6 +249,7 @@ const menuData: MenuData = {
       description: "Truffle and goat cheese stuffed bread",
       price: 12,
       isVegetarian: true,
+      isSpicy: false,
       image: "/images/menu/TRUFFLE GOAT CHEESE KULCHA.png"
     },
     {
@@ -254,6 +258,7 @@ const menuData: MenuData = {
       description: "Minced meat stuffed bread",
       price: 10,
       isVegetarian: false,
+      isSpicy: true,
       image: "/images/menu/KEEMA KULCHA.png"
     }
   ],
@@ -264,6 +269,7 @@ const menuData: MenuData = {
       description: "Arbi chips, nadrukhakhra sabudana, smoked tomato chutney, pineapple chutney, and walnut chutney",
       price: 8,
       isVegetarian: true,
+      isSpicy: false,
       image: "/images/menu/ASSORTED PAPAD.png"
     },
     {
@@ -272,6 +278,7 @@ const menuData: MenuData = {
       description: "Cumin-scented basmati rice",
       price: 7,
       isVegetarian: true,
+      isSpicy: false,
       image: "/images/menu/JEERA RICE.png"
     }
   ]
