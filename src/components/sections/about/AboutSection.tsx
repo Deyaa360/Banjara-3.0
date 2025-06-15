@@ -42,12 +42,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-walnut-400/20 via-walnut-300/10 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold-400/15 via-gold-300/10 to-transparent" />
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-5" 
           style={{ 
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'44\' height=\'44\' viewBox=\'0 0 44 44\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23715436\' fill-opacity=\'0.4\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M0 0h4v4H0V0zm4 4h4v4H4V4zm4-4h4v4H8V0zm8 0h4v4h-4V0zm-4 4h4v4h-4V4zm0-8h4v4h-4v-4zm8 8h4v4h-4V4zm-8 8h4v4h-4v-4zm0 8h4v4h-4v-4zm0 8h4v4h-4v-4zm0-24h4v4h-4v-4zm0 8h4v4h-4v-4zm0 8h4v4h-4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4zm-16 8h4v4h-4v-4zm0 8h4v4h-4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4zm0-8h4v4h-4v-4zm0-8h4v4h-4v-4zm8 0h4v4h-4v-4zm0 8h4v4h-4v-4zm-8-16h4v4h-4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4zm0-8h4v4h-4v-4z\'/%3E%3C/g%3E%3C/svg%3E")',
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'44\' height=\'44\' viewBox=\'0 0 44 44\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23715436\' fill-opacity=\'0.5\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M0 0h4v4H0V0zm4 4h4v4H4V4zm4-4h4v4H8V0zm8 0h4v4h-4V0zm-4 4h4v4h-4V4zm0-8h4v4h-4v-4zm8 8h4v4h-4V4zm-8 8h4v4h-4v-4zm0 8h4v4h-4v-4zm0 8h4v4h-4v-4zm0-24h4v4h-4v-4zm0 8h4v4h-4v-4zm0 8h4v4h-4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4zm-16 8h4v4h-4v-4zm0 8h4v4h-4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4zm0-8h4v4h-4v-4zm0-8h4v4h-4v-4zm8 0h4v4h-4v-4zm0 8h4v4h-4v-4zm-8-16h4v4h-4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4zm0-8h4v4h-4v-4z\'/%3E%3C/g%3E%3C/svg%3E")',
           }}
         ></div>
       </div>

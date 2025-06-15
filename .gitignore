@@ -22,3 +22,8 @@ Thumbs.db
 # Misc
 *.local
 *.swp
+
+# Vercel
+.vercel
+vercel.json
+next.config.vercel.js
