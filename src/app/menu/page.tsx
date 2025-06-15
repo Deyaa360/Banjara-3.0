@@ -631,19 +631,19 @@ export default function MenuPage() {
       if (currentScrollY >= 50) {
         setIsScrolled(true);
         
-        // Hide header and tabs when scrolling down, show when scrolling up
+        // Hide header when scrolling down, show when scrolling up
         // Add a small threshold to prevent flickering
         if (currentScrollY > lastScrollY.current + 5) {
           setShowHeader(false); // scrolling down - hide header
-          setShowTabs(false); // scrolling down - hide tabs
+          // Keep tabs visible when scrolling
         } else if (currentScrollY < lastScrollY.current - 5) {
           setShowHeader(true); // scrolling up - show header
-          setShowTabs(true); // scrolling up - show tabs
+          setShowTabs(true); // ensure tabs are visible when scrolling up
         }
       } else {
         setIsScrolled(false);
         setShowHeader(true);
-        setShowTabs(true);
+        setShowTabs(true); // ensure tabs are visible when at top
       }
       
       lastScrollY.current = currentScrollY;
