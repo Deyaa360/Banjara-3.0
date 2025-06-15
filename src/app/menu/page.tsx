@@ -459,7 +459,27 @@ function MenuCategoryCard({ category, items, viewMode, switchToggled, activeCard
                 tabIndex={0}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setActiveCardId(activeCardId === item.id ? null : item.id);
+                  const newActiveId = activeCardId === item.id ? null : item.id;
+                  setActiveCardId(newActiveId);
+                  
+                  // Trigger header hide/show based on card state (mobile + desktop)
+                  if (typeof window !== 'undefined') {
+                    if (newActiveId !== null) {
+                      // Card is being activated - hide header
+                      console.log('🃏 Card activated - hiding header');
+                      const hideHeaderEvent = new CustomEvent('hideHeader', {
+                        detail: { source: 'cardClick' }
+                      });
+                      window.dispatchEvent(hideHeaderEvent);
+                    } else {
+                      // Card is being deactivated - show header
+                      console.log('🃏 Card deactivated - showing header');
+                      const showHeaderEvent = new CustomEvent('showHeader', {
+                        detail: { source: 'cardClick' }
+                      });
+                      window.dispatchEvent(showHeaderEvent);
+                    }
+                  }
                 }}
                 onMouseEnter={() => {
                   const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
@@ -586,6 +606,7 @@ export default function MenuPage() {
   const [switchToggled, setSwitchToggled] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [showHeader, setShowHeader] = useState<boolean>(true);
+  const [showTabs, setShowTabs] = useState<boolean>(true);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
@@ -610,23 +631,46 @@ export default function MenuPage() {
       if (currentScrollY >= 50) {
         setIsScrolled(true);
         
-        // Hide header when scrolling down, show when scrolling up
+        // Hide header and tabs when scrolling down, show when scrolling up
         // Add a small threshold to prevent flickering
         if (currentScrollY > lastScrollY.current + 5) {
           setShowHeader(false); // scrolling down - hide header
+          setShowTabs(false); // scrolling down - hide tabs
         } else if (currentScrollY < lastScrollY.current - 5) {
           setShowHeader(true); // scrolling up - show header
+          setShowTabs(true); // scrolling up - show tabs
         }
       } else {
         setIsScrolled(false);
         setShowHeader(true);
+        setShowTabs(true);
       }
       
       lastScrollY.current = currentScrollY;
     };
 
+    // Handle custom hide/show events from card clicks
+    const handleHideTabs = (event: CustomEvent) => {
+      if (event.detail?.source === 'cardClick') {
+        setShowTabs(false);
+      }
+    };
+
+    const handleShowTabs = (event: CustomEvent) => {
+      if (event.detail?.source === 'cardClick') {
+        setShowTabs(true);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('hideHeader', handleHideTabs as EventListener);
+    window.addEventListener('showHeader', handleShowTabs as EventListener);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hideHeader', handleHideTabs as EventListener);
+      window.removeEventListener('showHeader', handleShowTabs as EventListener);
+    };
   }, []);
 
   // Deactivate card on scroll or tap away
@@ -658,20 +702,22 @@ export default function MenuPage() {
     <main className="min-h-screen bg-charcoal-900 overflow-x-hidden">
       {/* Sticky Tab Navigation - At top */}
       <div 
-        className="fixed left-0 right-0 bg-charcoal-900/95 backdrop-blur-lg border-b border-gold-700/30 shadow-xl z-30"
+        className={`fixed left-0 right-0 bg-charcoal-900/95 backdrop-blur-lg border-b border-gold-700/30 shadow-xl z-30 transition-transform duration-300 ${
+          showTabs ? 'translate-y-0' : '-translate-y-full'
+        }`}
         style={{
           top: showHeader ? '0px' : '0px',
           paddingTop: showHeader ? (isMobile ? '100px' : '140px') : '20px',
-          transition: 'padding-top 0.3s ease-in-out'
+          transition: 'padding-top 0.3s ease-in-out, transform 0.3s ease-in-out'
         }}
       >
-        <div className="container mx-auto px-6 py-6">
+        <div className="container mx-auto px-6 py-3">
           {/* Mobile Layout */}
-          <div className="md:hidden space-y-4">
+          <div className="md:hidden space-y-2">
             {/* Controls for Mobile */}
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-3">
               {/* Vegetarian Filter */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Leaf className={`w-4 h-4 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
                 <span className={`text-sm font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>
                   Vegetarian Only
@@ -706,12 +752,12 @@ export default function MenuPage() {
             </div>
 
             {/* Category Tabs for Mobile */}
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveTab(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
                     activeTab === category
                       ? 'bg-gold-500 text-charcoal-900'
                       : 'bg-charcoal-800/50 text-gold-300 hover:bg-charcoal-700/70 hover:text-gold-200'
