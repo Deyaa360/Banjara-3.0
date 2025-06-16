@@ -9,9 +9,6 @@ import { Award } from 'lucide-react';
 import { getImagePath } from "@/lib/imagePath";
 
 export default function AboutPage() {
-
-
-
   return (
     <div className="bg-stone-50">
       {/* Hero Section */}
@@ -194,8 +191,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-
 
       {/* CTA Section */}
       <section className="section-padding bg-gradient-dark relative overflow-hidden">

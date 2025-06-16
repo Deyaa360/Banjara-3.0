@@ -58,8 +58,22 @@ const Header = () => {
       }
     };
 
+    // Listen for custom events from menu card clicks
+    const handleHideHeader = (event) => {
+      setShowHeader(false);
+    };
+    const handleShowHeader = (event) => {
+      setShowHeader(true);
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('hideHeader', handleHideHeader);
+    window.addEventListener('showHeader', handleShowHeader);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hideHeader', handleHideHeader);
+      window.removeEventListener('showHeader', handleShowHeader);
+    };
   }, [isScrolled, showHeader]);
 
   // Close menu when clicking on a link
