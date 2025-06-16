@@ -250,7 +250,7 @@ export default function ReservationsPage() {
                       id="date-select"
                       variant="outline"
                       className={cn(
-                        "w-full h-12 bg-background border-2 justify-start text-left font-normal",
+                        "w-full max-w-full h-12 bg-background border-2 justify-start text-left font-normal",
                         !date && "text-muted-foreground"
                       )}
                     >
@@ -310,7 +310,7 @@ export default function ReservationsPage() {
                           No time slots available for this date
                         </div>
                       ) : (
-                        <div className="grid grid-cols-2 gap-1 p-1">
+                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-1 p-1">
                           {timeSlots.map((slot) => (
                             <SelectItem
                               key={slot.time}
@@ -477,7 +477,7 @@ export default function ReservationsPage() {
                       }
                     }}
                     className={cn(
-                      "h-12 pl-4 bg-background border-2",
+                      "h-12 pl-4 bg-background border-2 w-full max-w-full",
                       formErrors.name && "border-destructive focus-visible:ring-destructive"
                     )}
                     placeholder="Enter your full name"
@@ -511,7 +511,7 @@ export default function ReservationsPage() {
                       }
                     }}
                     className={cn(
-                      "h-12 pl-4 bg-background border-2",
+                      "h-12 pl-4 bg-background border-2 w-full max-w-full",
                       formErrors.email && "border-destructive focus-visible:ring-destructive"
                     )}
                     placeholder="Enter your email address"
@@ -548,7 +548,7 @@ export default function ReservationsPage() {
                       }
                     }}
                     className={cn(
-                      "h-12 pl-4 bg-background border-2",
+                      "h-12 pl-4 bg-background border-2 w-full max-w-full",
                       formErrors.phone && "border-destructive focus-visible:ring-destructive"
                     )}
                     placeholder="Enter your phone number"
@@ -578,7 +578,7 @@ export default function ReservationsPage() {
                   value={specialRequests}
                   onChange={(e) => setSpecialRequests(e.target.value)}
                   placeholder="Any dietary requirements, allergies, special occasions, or seating preferences?"
-                  className="min-h-[100px] bg-background border-2 resize-none"
+                  className="min-h-[100px] bg-background border-2 resize-none w-full max-w-full"
                 />
                 <p className="text-xs text-muted-foreground">
                   We'll do our best to accommodate your requests, but they cannot be guaranteed
@@ -807,7 +807,7 @@ export default function ReservationsPage() {
                 Reservation Summary
               </h4>
               
-              <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
                 <div>
                   <p className="text-muted-foreground">Date</p>
                   <p className="font-medium">{date && format(date, "PPPP")}</p>
@@ -898,13 +898,13 @@ export default function ReservationsPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/banner1.png')",
+            backgroundImage: "url('./banner1.png')",
             filter: "brightness(0.7)",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80" />
         <div className="relative z-10 flex h-full items-center justify-center">
-          <div className="text-center text-white px-4">
+          <div className="text-center text-white px-4 mt-16 md:mt-24">
             <h1 className="mb-4 font-serif text-4xl font-bold md:text-5xl lg:text-6xl">
               Reserve Your Table
             </h1>
@@ -937,10 +937,10 @@ export default function ReservationsPage() {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto max-w-7xl px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-[1fr,320px]">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-12">
+        <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
           {/* Reservation Form */}
-          <div className="space-y-6">
+          <div className="space-y-6 w-full max-w-full overflow-x-hidden">
             {error.length > 0 && (
               <Alert variant="destructive" className="animate-in fade-in-50 duration-300">
                 <AlertCircle className="h-4 w-4" />
@@ -955,7 +955,7 @@ export default function ReservationsPage() {
               </Alert>
             )}
 
-            <div className="rounded-lg border-2 bg-card p-6 md:p-8 shadow-lg">
+            <div className="rounded-lg border-2 bg-card p-4 sm:p-6 md:p-8 shadow-lg w-full overflow-x-visible">
               {renderStepContent()}
             </div>
             
@@ -1135,4 +1135,4 @@ export default function ReservationsPage() {
       )}
     </div>
   );
-} 
+}
