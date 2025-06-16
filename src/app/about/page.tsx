@@ -5,27 +5,10 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Heart, Users, Award, MapPin, Clock, Star } from 'lucide-react';
+import { Award } from 'lucide-react';
 import { getImagePath } from "@/lib/imagePath";
 
 export default function AboutPage() {
-  const values = [
-    {
-      icon: Heart,
-      title: "Authenticity",
-      description: "Every dish is a faithful tribute to its regional roots, crafted with love and dedication"
-    },
-    {
-      icon: Users,
-      title: "Connection",
-      description: "We aim to build a community through the shared experience of food, culture, and storytelling"
-    },
-    {
-      icon: Award,
-      title: "Excellence",
-      description: "We are committed to uncompromising quality in our ingredients, preparation, and the hospitality we provide"
-    }
-  ];
 
 
 
@@ -55,7 +38,7 @@ export default function AboutPage() {
         </div>
         
         {/* Content */}
-        <div className="relative z-10 container-luxury text-center">
+        <div className="relative z-10 container-luxury text-center mt-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,7 +64,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
-              className="font-display text-display-xl text-white mb-8 leading-tight"
+              className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight"
             >
               The Spirit of
               <br />
@@ -212,87 +195,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="section-padding bg-gradient-warm">
-        <div className="container-luxury">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-3 mb-8">
-              <div className="h-px w-8 bg-gradient-to-r from-transparent to-warm-400" />
-              <span className="text-warm-600 text-sm font-medium tracking-[0.3em] uppercase font-body">
-                Our Values
-              </span>
-              <div className="h-px w-8 bg-gradient-to-l from-transparent to-warm-400" />
-            </div>
-            
-            <h2 className="font-display text-display-lg text-charcoal-900 mb-8 leading-tight">
-              What Drives
-              <br />
-              <span className="text-gradient-gold">Our Passion</span>
-            </h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="card-luxury p-8 text-center group hover:shadow-warm"
-              >
-                <div className="w-16 h-16 bg-warm-400/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-warm-400/20 transition-colors duration-300">
-                  <value.icon className="w-8 h-8 text-warm-500" />
-                </div>
-                <h3 className="font-display text-xl font-semibold text-charcoal-900 mb-4">{value.title}</h3>
-                <p className="text-readable text-charcoal-600 font-body">{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* Culinary Team Section */}
-      <section className="section-padding bg-white">
-        <div className="container-luxury">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-3 mb-8">
-              <div className="h-px w-8 bg-gradient-to-r from-transparent to-warm-400" />
-              <span className="text-warm-600 text-sm font-medium tracking-[0.3em] uppercase font-body">
-                Our Culinary Team
-              </span>
-              <div className="h-px w-8 bg-gradient-to-l from-transparent to-warm-400" />
-            </div>
-            
-            <h2 className="font-display text-display-lg text-charcoal-900 mb-8 leading-tight">
-              The Artists Behind
-              <br />
-              <span className="text-gradient-gold">the Plate</span>
-            </h2>
-            
-            <div className="max-w-4xl mx-auto">
-              <p className="text-readable-lg text-charcoal-700 font-body leading-relaxed">
-                Our chefs are more than cooks; they are culinary storytellers. With a shared passion for India's 
-                rich heritage, they bring years of skill and a deep respect for tradition to the kitchen. Their 
-                expertise lies in understanding the soul of each ingredient and the history of every recipe. They 
-                don't just recreate dishes; they channel the spirit of the regions they come from, ensuring every 
-                plate that leaves our kitchen is a true taste of its origin.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* CTA Section */}
       <section className="section-padding bg-gradient-dark relative overflow-hidden">

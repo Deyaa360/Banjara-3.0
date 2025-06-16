@@ -59,3 +59,15 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
+/* Fix for small switch thumb in menu page */
+.custom-switch-thumb-sm .radix-switch-thumb, 
+.custom-switch-thumb-sm [data-radix-switch-thumb] {
+  height: 1rem !important;
+  width: 1rem !important;
+  min-width: 1rem !important;
+  min-height: 1rem !important;
+  max-width: 1rem !important;
+  max-height: 1rem !important;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.10);
+}
