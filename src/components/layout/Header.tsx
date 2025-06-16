@@ -27,53 +27,40 @@ const Header = () => {
 
   // Effect for handling scroll events
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Add active class when scrolled past 50px
-      if (currentScrollY >= 50) {
-        setIsScrolled(true);
-        
-        // Hide header when scrolling down, show when scrolling up
-        if (currentScrollY > lastScrollY.current) {
-          setShowHeader(false); // scrolling down
-        } else {
-          setShowHeader(true); // scrolling up
-        }
-      } else {
-        setIsScrolled(false);
-        setShowHeader(true);
-      }
-      
-      lastScrollY.current = currentScrollY;
-    };
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          let newIsScrolled = isScrolled;
+          let newShowHeader = showHeader;
 
-    // Handle custom hide/show header events from card clicks
-    const handleHideHeader = (event: CustomEvent) => {
-      if (event.detail?.source === 'cardClick') {
-        console.log('📱 Header received hide event from card click');
-        setShowHeader(false);
-        setIsScrolled(true);
-      }
-    };
+          if (currentScrollY >= 50) {
+            newIsScrolled = true;
+            if (currentScrollY > lastScrollY.current) {
+              newShowHeader = false; // scrolling down
+            } else {
+              newShowHeader = true; // scrolling up
+            }
+          } else {
+            newIsScrolled = false;
+            newShowHeader = true;
+          }
 
-    const handleShowHeader = (event: CustomEvent) => {
-      if (event.detail?.source === 'cardClick') {
-        console.log('📱 Header received show event from card click');
-        setShowHeader(true);
+          // Only update state if changed
+          if (newIsScrolled !== isScrolled) setIsScrolled(newIsScrolled);
+          if (newShowHeader !== showHeader) setShowHeader(newShowHeader);
+
+          lastScrollY.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('hideHeader', handleHideHeader as EventListener);
-    window.addEventListener('showHeader', handleShowHeader as EventListener);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('hideHeader', handleHideHeader as EventListener);
-      window.removeEventListener('showHeader', handleShowHeader as EventListener);
-    };
-  }, []);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isScrolled, showHeader]);
 
   // Close menu when clicking on a link
   const closeMenu = () => {
@@ -97,7 +84,7 @@ const Header = () => {
       {/* Top bar */}
       <div className={cn(
         "top-bar hidden md:block text-gold-200 py-2 border-b border-gold-400/20 fixed top-0 left-0 w-full z-40",
-        isScrolled ? "bg-charcoal-950/95 backdrop-blur-sm" : "bg-transparent",
+        isScrolled ? "bg-charcoal-900 backdrop-blur-sm" : "bg-transparent",
         !showHeader && "transform -translate-y-full"
       )}>
         <div className="container mx-auto flex flex-wrap justify-between items-center px-4 text-sm">
@@ -129,7 +116,7 @@ const Header = () => {
         ref={headerRef}
         className={cn(
           "banjara-header fixed left-0 w-full z-50 transition-all duration-300 border-b",
-          "md:top-[40px]", // Restore offset for desktop so header can animate out of view
+          "md:top-[37px]", // Restore offset for desktop so header can animate out of view
           "top-0", // No offset on mobile
           isScrolled 
             ? "active bg-charcoal-900/95 backdrop-blur-lg shadow-elegant border-gold-400/30 py-3 md:py-4" 
