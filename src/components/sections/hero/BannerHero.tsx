@@ -21,8 +21,8 @@ interface BannerHeroProps {
 
 export const BannerHero: React.FC<BannerHeroProps> = ({
   slides,
-  primaryButtonText = 'Reserve a Table',
-  primaryButtonLink = '/reservations',
+  primaryButtonText = 'Contact Us',
+  primaryButtonLink = '/contact',
   secondaryButtonText = 'View Menu',
   secondaryButtonLink = '/menu',
 }) => {

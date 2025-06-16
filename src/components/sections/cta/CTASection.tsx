@@ -18,10 +18,10 @@ interface CTASectionProps {
 }
 
 export const CTASection: React.FC<CTASectionProps> = ({
-  title = "Reserve Your Table Today",
+  title = "Contact Us Today",
   subtitle = "Experience the authentic flavors of India in an elegant setting",
-  primaryButtonText = "Make a Reservation",
-  primaryButtonLink = "/reservations",
+  primaryButtonText = "Get in Touch",
+  primaryButtonLink = "/contact",
   secondaryButtonText = "View Menu",
   secondaryButtonLink = "/menu",
   tertiaryButtonText = "Call Us",

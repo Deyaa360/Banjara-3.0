@@ -12,9 +12,8 @@ import { getImagePath } from "@/lib/imagePath";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Menu", href: "/menu" },
-  { name: "Reservations", href: "/reservations" },
   { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Reservations", href: "/reservations" },
 ];
 
 const Header = () => {
@@ -163,7 +162,7 @@ const Header = () => {
               className="ml-4 border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-charcoal-900 font-semibold px-6 py-2 rounded-full transition-all duration-300"
               asChild
             >
-              <Link href="/reservations">Book a Table</Link>
+              <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
 
@@ -275,7 +274,7 @@ const Header = () => {
             className="w-full border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-charcoal-900 font-semibold px-6 py-3 rounded-full transition-all duration-300" 
             asChild
           >
-            <Link href="/reservations" onClick={closeMenu}>Book a Table</Link>
+            <Link href="/contact" onClick={closeMenu}>Contact Us</Link>
           </Button>
         </div>
       </div>

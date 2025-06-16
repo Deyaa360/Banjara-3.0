@@ -5,10 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function getImagePath(path: string): string {
-  return path.startsWith('/') ? path : `/${path}`;
-}
-
 export function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('en-US', {
     weekday: 'long',

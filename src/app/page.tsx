@@ -166,8 +166,8 @@ export default function Home() {
         {/* Hero Banner Section */}
         <BannerHero 
           slides={bannerContent}
-          primaryButtonText="Reserve a Table"
-          primaryButtonLink="/reservations"
+          primaryButtonText="Contact Us"
+          primaryButtonLink="/contact"
           secondaryButtonText="View Menu"
           secondaryButtonLink="/menu"
         />
@@ -213,10 +213,10 @@ export default function Home() {
         {/* CTA Section */}
         <LazySection id="cta-section">
           <CTASection 
-            title="Reserve Your Table Today"
+            title="Contact Us Today"
             subtitle="Experience the authentic flavors of India in an elegant setting"
-            primaryButtonText="Make a Reservation"
-            primaryButtonLink="/reservations"
+            primaryButtonText="Get in Touch"
+            primaryButtonLink="/contact"
             secondaryButtonText="View Menu"
             secondaryButtonLink="/menu"
             tertiaryButtonText="Call Us"
