@@ -698,15 +698,7 @@ export default function MenuPage() {
                 <Switch
                   checked={switchToggled}
                   onCheckedChange={setSwitchToggled}
-                  className={`h-4 w-7 border data-[state=checked]:bg-green-500/80 data-[state=unchecked]:bg-charcoal-700 ${
-                    switchToggled ? 'border-green-400' : 'border-gold-600'
-                  }`}
-                  style={{
-                    boxShadow: 'none',
-                    outline: 'none',
-                    minHeight: '1rem',
-                    minWidth: '1.75rem'
-                  }}
+                  className="" // Remove custom sizing and classes for standard look
                 />
               </div>
 
