@@ -677,7 +677,7 @@ export default function MenuPage() {
     <main className="min-h-screen bg-charcoal-900 overflow-x-hidden">
       {/* Sticky Tab Navigation - At top */}
       <div 
-        className={`fixed left-0 right-0 bg-charcoal-900/95 backdrop-blur-lg border-b border-gold-700/30 shadow-xl z-30 transition-transform duration-300 ${
+        className={`menu-sticky-bar fixed left-0 right-0 bg-charcoal-900/95 backdrop-blur-lg border-b border-gold-700/30 shadow-xl z-30 transition-transform duration-300 ${
           showTabs ? 'translate-y-0' : '-translate-y-full'
         }`}
         style={{
@@ -751,7 +751,22 @@ export default function MenuPage() {
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setActiveTab(category)}
+                  onClick={() => {
+                    setActiveTab(category);
+                    setTimeout(() => {
+                      const menuListSection = document.getElementById('menu-list-section');
+                      const stickyBar = document.querySelector('.menu-sticky-bar');
+                      if (menuListSection) {
+                        const rect = menuListSection.getBoundingClientRect();
+                        const scrollTop = window.scrollY + rect.top;
+                        let offset = 0;
+                        if (stickyBar) {
+                          offset = (stickyBar as HTMLElement).offsetHeight;
+                        }
+                        window.scrollTo({ top: scrollTop - offset, behavior: 'smooth' });
+                      }
+                    }, 0);
+                  }}
                   className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                     activeTab === category
                       ? 'bg-gold-500 text-charcoal-900'
@@ -806,7 +821,7 @@ export default function MenuPage() {
 
 
       {/* Menu Items Section */}
-      <section className="relative z-10" style={{ paddingTop: '220px' }}>
+      <section className="relative z-10" style={{ paddingTop: '220px' }} id="menu-list-section">
         
         {/* Background Pattern - covers the whole menu area, now with even higher opacity */}
         <div 
