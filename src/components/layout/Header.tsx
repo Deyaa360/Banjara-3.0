@@ -14,6 +14,7 @@ const navigation = [
   { name: "Menu", href: "/menu" },
   { name: "About", href: "/about" },
   { name: "Reservations", href: "/reservations" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const Header = () => {
@@ -118,8 +119,8 @@ const Header = () => {
           "md:top-[37px]", // Restore offset for desktop so header can animate out of view
           "top-0", // No offset on mobile
           isScrolled 
-            ? "active bg-charcoal-900/95 backdrop-blur-lg shadow-elegant border-gold-400/30 py-3 md:py-4" 
-            : "bg-transparent border-transparent py-5 md:py-8",
+            ? "active bg-charcoal-900/95 backdrop-blur-lg shadow-elegant border-gold-400/30 py-3 md:py-2" 
+            : "bg-transparent border-transparent py-4 md:py-2", // slightly reduced mobile padding
           !showHeader && "hide"
         )}
       >

@@ -682,30 +682,30 @@ export default function MenuPage() {
         }`}
         style={{
           top: showHeader ? '0px' : '0px',
-          paddingTop: showHeader ? (isMobile ? '100px' : '140px') : '20px',
+          paddingTop: showHeader ? (isMobile ? '70px' : '90px') : '10px', // reduced padding
           transition: 'padding-top 0.3s ease-in-out, transform 0.3s ease-in-out'
         }}
       >
-        <div className={`container mx-auto px-6 pb-4 ${showHeader ? 'pt-10' : 'pt-0'}`}>
+        <div className={`container mx-auto px-3 pb-2 ${showHeader ? 'pt-10' : 'pt-0'}`}> {/* pt-10 when scrolling up, pt-0 otherwise */}
           {/* Mobile Layout */}
-          <div className="md:hidden space-y-2">
+          <div className="md:hidden space-y-1">
             {/* Controls for Mobile */}
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-2">
               {/* Vegetarian Filter */}
-              <div className="flex items-center gap-2">
-                <Leaf className={`w-4 h-4 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
-                <span className={`text-sm font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>
-                  Vegetarian Only
-                </span>
+              <div className="flex items-center gap-1">
+                <Leaf className={`w-3 h-3 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
+                <span className={`text-xs font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>Vegetarian Only</span>
                 <Switch
                   checked={switchToggled}
                   onCheckedChange={setSwitchToggled}
-                  className={`border-2 data-[state=checked]:bg-green-500/80 data-[state=unchecked]:bg-charcoal-700 ${
+                  className={`h-4 w-7 border data-[state=checked]:bg-green-500/80 data-[state=unchecked]:bg-charcoal-700 ${
                     switchToggled ? 'border-green-400' : 'border-gold-600'
                   }`}
                   style={{
                     boxShadow: 'none',
-                    outline: 'none'
+                    outline: 'none',
+                    minHeight: '1rem',
+                    minWidth: '1.75rem'
                   }}
                 />
               </div>
@@ -715,24 +715,24 @@ export default function MenuPage() {
                 type="single"
                 value={viewMode}
                 onValueChange={(value) => value && setViewMode(value as "list" | "visual")}
-                className="bg-charcoal-800/50 rounded-lg p-1"
+                className="bg-charcoal-800/50 rounded-lg p-0.5"
               >
-                <ToggleGroupItem value="list" size="sm" className="text-xs">
+                <ToggleGroupItem value="list" size="sm" className="text-xs px-2 py-1">
                   List
                 </ToggleGroupItem>
-                <ToggleGroupItem value="visual" size="sm" className="text-xs">
+                <ToggleGroupItem value="visual" size="sm" className="text-xs px-2 py-1">
                   Visual
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
 
             {/* Category Tabs for Mobile */}
-            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            <div className="flex gap-[0.375rem] overflow-x-auto pb-0.5 scrollbar-hide"> {/* slightly increased gap */}
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveTab(category)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                  className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-300 ${
                     activeTab === category
                       ? 'bg-gold-500 text-charcoal-900'
                       : 'bg-charcoal-800/50 text-gold-300 hover:bg-charcoal-700/70 hover:text-gold-200'
@@ -745,9 +745,9 @@ export default function MenuPage() {
           </div>
 
           {/* Desktop Layout */}
-          <div className="hidden md:flex items-center justify-between gap-8">
+          <div className="hidden md:flex items-center justify-between gap-4">
             {/* Category Tabs */}
-            <div className="flex gap-2">
+            <div className="flex gap-[0.375rem]"> {/* slightly increased gap */}
               {categories.map((category) => (
                 <button
                   key={category}
@@ -767,7 +767,7 @@ export default function MenuPage() {
                       }
                     }, 0);
                   }}
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 ${
                     activeTab === category
                       ? 'bg-gold-500 text-charcoal-900'
                       : 'bg-charcoal-800/50 text-gold-300 hover:bg-charcoal-700/70 hover:text-gold-200'
@@ -779,22 +779,22 @@ export default function MenuPage() {
             </div>
 
             {/* Controls */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3"> {/* reduced gap */}
               {/* Vegetarian Filter */}
-              <div className="flex items-center gap-3">
-                <Leaf className={`w-5 h-5 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
-                <span className={`text-sm font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>
-                  Vegetarian Only
-                </span>
+              <div className="flex items-center gap-1"> {/* reduced gap */}
+                <Leaf className={`w-4 h-4 ${switchToggled ? 'text-green-400 animate-pulse' : 'text-green-500/70'}`} />
+                <span className={`text-xs font-serif ${switchToggled ? 'text-green-400' : 'text-gold-300'}`}>Vegetarian Only</span>
                 <Switch
                   checked={switchToggled}
                   onCheckedChange={setSwitchToggled}
-                  className={`border-2 data-[state=checked]:bg-green-500/80 data-[state=unchecked]:bg-charcoal-700 ${
+                  className={`h-5 w-9 border data-[state=checked]:bg-green-500/80 data-[state=unchecked]:bg-charcoal-700 ${
                     switchToggled ? 'border-green-400' : 'border-gold-600'
                   }`}
                   style={{
                     boxShadow: 'none',
-                    outline: 'none'
+                    outline: 'none',
+                    minHeight: '1.25rem',
+                    minWidth: '2.25rem'
                   }}
                 />
               </div>
@@ -804,12 +804,12 @@ export default function MenuPage() {
                 type="single"
                 value={viewMode}
                 onValueChange={(value) => value && setViewMode(value as "list" | "visual")}
-                className="bg-charcoal-800/50 rounded-lg p-1"
+                className="bg-charcoal-800/50 rounded-lg p-0.5"
               >
-                <ToggleGroupItem value="list" className="text-sm">
+                <ToggleGroupItem value="list" className="text-xs px-2 py-1">
                   List
                 </ToggleGroupItem>
-                <ToggleGroupItem value="visual" className="text-sm">
+                <ToggleGroupItem value="visual" className="text-xs px-2 py-1">
                   Visual
                 </ToggleGroupItem>
               </ToggleGroup>
