@@ -686,7 +686,7 @@ export default function MenuPage() {
           transition: 'padding-top 0.3s ease-in-out, transform 0.3s ease-in-out'
         }}
       >
-        <div className="container mx-auto px-6 pt-10 pb-4">
+        <div className={`container mx-auto px-6 pb-4 ${showHeader ? 'pt-10' : 'pt-0'}`}>
           {/* Mobile Layout */}
           <div className="md:hidden space-y-2">
             {/* Controls for Mobile */}
