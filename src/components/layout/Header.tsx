@@ -59,10 +59,10 @@ const Header = () => {
     };
 
     // Listen for custom events from menu card clicks
-    const handleHideHeader = (event) => {
+    const handleHideHeader = (event: Event) => {
       setShowHeader(false);
     };
-    const handleShowHeader = (event) => {
+    const handleShowHeader = (event: Event) => {
       setShowHeader(true);
     };
 
