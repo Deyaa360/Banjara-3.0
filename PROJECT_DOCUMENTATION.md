@@ -1,8 +1,8 @@
-# SpiceFusion Restaurant Website Documentation
+# Banjara Restaurant Website Documentation
 
 ## Project Overview
 
-SpiceFusion is a premium North Indian restaurant website designed to showcase the restaurant's elegant ambiance, authentic cuisine, and provide essential services like online reservations, menu browsing, and contact information. The website features a sophisticated gold and black color scheme that reflects the upscale dining experience and rich culinary heritage of North Indian cuisine.
+Banjara is a heritage Indian cuisine restaurant website designed to showcase the restaurant's nomadic culinary philosophy, authentic regional dishes, and provide essential services like online reservations, menu browsing, and contact information. The website features a sophisticated walnut, tan, and gold color scheme that reflects the heritage dining experience and rich culinary traditions from across India.
 
 ## Technologies Used
 
@@ -15,22 +15,30 @@ SpiceFusion is a premium North Indian restaurant website designed to showcase th
 
 ### UI Components and Libraries
 
-- **Lucide Icons**: Modern icon set for UI elements
 - **shadcn/ui**: Reusable UI components built with Radix UI and Tailwind CSS
 - **Radix UI**: Unstyled, accessible components for building high-quality web interfaces
+- **Lucide Icons**: Modern icon set for UI elements
+- **Framer Motion**: Animation library for smooth transitions and interactions
+- **Embla Carousel**: Carousel component for image galleries
+- **React Hook Form**: Form handling and validation
+- **date-fns**: Date manipulation and formatting
 
 ### Development Tools
 
 - **ESLint**: JavaScript linting utility
-- **Prettier**: Code formatter
 - **PostCSS**: Tool for transforming CSS with JavaScript plugins
 - **Autoprefixer**: Plugin to parse CSS and add vendor prefixes
+- **@tailwindcss/typography**: Typography plugin for Tailwind CSS
 
 ## Project Structure
 
 ```
-spice-fusion/
-├── public/               # Static assets (images, fonts, etc.)
+banjara-restaurant/
+├── public/               # Static assets and images
+│   └── images/           # Restaurant and menu images
+│       ├── about/        # About page images
+│       ├── menu/         # Menu item images
+│       └── reservations/ # Reservation page images
 ├── src/
 │   ├── app/              # Next.js app router pages
 │   │   ├── about/        # About page
@@ -38,14 +46,21 @@ spice-fusion/
 │   │   ├── menu/         # Menu page
 │   │   ├── reservations/ # Reservations page
 │   │   ├── layout.tsx    # Root layout component
-│   │   └── page.tsx      # Home page
+│   │   ├── page.tsx      # Home page
+│   │   └── globals.css   # Global styles
 │   ├── components/       # Reusable React components
-│   │   ├── reservation/  # Reservation-related components
-│   │   ├── ui/           # UI components (buttons, inputs, etc.)
-│   │   ├── header.tsx    # Site header component
-│   │   └── footer.tsx    # Site footer component
+│   │   ├── animations/   # Animation components
+│   │   ├── common/       # Common utility components
+│   │   ├── contact/      # Contact form components
+│   │   ├── layout/       # Header and Footer components
+│   │   ├── sections/     # Page section components
+│   │   └── ui/           # UI components (buttons, inputs, etc.)
+│   ├── context/          # React context providers
+│   ├── hooks/            # Custom React hooks
 │   ├── lib/              # Utility functions and shared code
-│   └── styles/           # Global styles and Tailwind configuration
+│   ├── scripts/          # Build and utility scripts
+│   ├── styles/           # Additional styles
+│   └── theme/            # Theme configuration
 ├── tailwind.config.js    # Tailwind CSS configuration
 ├── tsconfig.json         # TypeScript configuration
 └── package.json          # Project dependencies and scripts
@@ -348,6 +363,6 @@ The website is configured for deployment on Vercel, which provides:
 
 ## Conclusion
 
-The SpiceFusion website provides an elegant digital presence for the restaurant, effectively showcasing its upscale North Indian cuisine and ambiance. The gold and black theme creates a sophisticated visual identity that aligns with the restaurant's premium positioning. With features like online reservations, detailed menu information, and contact capabilities, the website serves as both a marketing tool and a functional service platform for customers.
+The Banjara website provides an elegant digital presence for the restaurant, effectively showcasing its heritage Indian cuisine and nomadic culinary philosophy. The walnut, tan, and gold color scheme creates a sophisticated visual identity that aligns with the restaurant's heritage positioning and celebrates the rich traditions of regional Indian cuisine. With features like online reservations, detailed menu information, contact capabilities, and immersive storytelling, the website serves as both a marketing tool and a functional service platform for customers.
 
-The modular architecture and modern technology stack ensure the website is maintainable, extensible, and performs well across all devices. Future enhancements will focus on adding more interactive features and expanding the online services offered to customers.
+The modular architecture, modern technology stack with animations, and responsive design ensure the website is maintainable, extensible, and performs well across all devices. The use of Framer Motion for animations and careful attention to user experience creates an engaging platform that tells the story of nomadic culinary traditions. Future enhancements will focus on adding more interactive features and expanding the online services offered to customers.

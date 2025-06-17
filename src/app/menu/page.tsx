@@ -723,7 +723,22 @@ export default function MenuPage() {
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setActiveTab(category)}
+                  onClick={() => {
+                    setActiveTab(category);
+                    setTimeout(() => {
+                      const menuListSection = document.getElementById('menu-list-section');
+                      const stickyBar = document.querySelector('.menu-sticky-bar');
+                      if (menuListSection) {
+                        const rect = menuListSection.getBoundingClientRect();
+                        const scrollTop = window.scrollY + rect.top;
+                        let offset = 0;
+                        if (stickyBar) {
+                          offset = (stickyBar as HTMLElement).offsetHeight;
+                        }
+                        window.scrollTo({ top: scrollTop - offset, behavior: 'smooth' });
+                      }
+                    }, 0);
+                  }}
                   className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-300 ${
                     activeTab === category
                       ? 'bg-gold-500 text-charcoal-900'

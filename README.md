@@ -1,29 +1,31 @@
-# SpiceFusion Restaurant Website
+# Banjara Restaurant Website
 
-A modern, elegant website for SpiceFusion, a premium North Indian restaurant, built with Next.js, React, TypeScript, and Tailwind CSS.
-
-![SpiceFusion Website](public/images/website-preview.jpg)
+A modern, elegant website for Banjara, a heritage Indian cuisine restaurant, built with Next.js, React, TypeScript, and Tailwind CSS.
 
 ## 🚀 Features
 
 - **Responsive Design**: Optimized for all device sizes
-- **Elegant UI**: Sophisticated gold and black theme
-- **Online Reservations**: Table booking functionality
-- **Interactive Menu**: Categorized menu with dietary indicators
-- **Contact Form**: Customer inquiry submission
-- **About Page**: Restaurant story and team information
-- **Accessibility**: WCAG compliant components
+- **Heritage Theme**: Sophisticated walnut, tan, and gold color scheme
+- **Online Reservations**: Complete table booking system with date/time selection
+- **Interactive Menu**: Regional Indian dishes with dietary indicators and spice levels
+- **Contact Form**: Customer inquiry submission with multiple inquiry types
+- **About Page**: Restaurant heritage story and nomadic cuisine philosophy
+- **Animations**: Smooth animations using Framer Motion
+- **Image Optimization**: Advanced image handling and optimization
 
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 14](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/) built with Radix UI
+- **UI Primitives**: [Radix UI](https://www.radix-ui.com/)
 - **Icons**: [Lucide Icons](https://lucide.dev/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Form Handling**: React Hook Form
+- **Date Handling**: [date-fns](https://date-fns.org/)
+- **Carousel**: [Embla Carousel](https://www.embla-carousel.com/)
 - **Linting**: ESLint
-- **Formatting**: Prettier
 
 ## 📋 Prerequisites
 
@@ -36,22 +38,18 @@ A modern, elegant website for SpiceFusion, a premium North Indian restaurant, bu
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/spice-fusion.git
-   cd spice-fusion
+   git clone https://github.com/Deyaa360/Banjara-3.0.git
+   cd "Banjara 4.0"
    ```
 
 2. Install dependencies:
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
 3. Start the development server:
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the website.
@@ -59,15 +57,28 @@ A modern, elegant website for SpiceFusion, a premium North Indian restaurant, bu
 ## 📁 Project Structure
 
 ```
-spice-fusion/
-├── public/               # Static assets
+banjara-restaurant/
+├── public/               # Static assets and images
+│   └── images/           # Restaurant and menu images
 ├── src/
 │   ├── app/              # Next.js app router pages
+│   │   ├── about/        # About page
+│   │   ├── contact/      # Contact page
+│   │   ├── menu/         # Menu page
+│   │   └── reservations/ # Reservations page
 │   ├── components/       # Reusable components
-│   │   ├── reservation/  # Reservation components
+│   │   ├── animations/   # Animation components
+│   │   ├── common/       # Common components
+│   │   ├── contact/      # Contact form components
+│   │   ├── layout/       # Header and Footer
+│   │   ├── sections/     # Page sections
 │   │   └── ui/           # UI components
+│   ├── context/          # React context providers
+│   ├── hooks/            # Custom React hooks
 │   ├── lib/              # Utility functions
-│   └── styles/           # Global styles
+│   ├── scripts/          # Build scripts
+│   ├── styles/           # Global styles
+│   └── theme/            # Theme configuration
 ├── tailwind.config.js    # Tailwind configuration
 └── tsconfig.json         # TypeScript configuration
 ```
@@ -76,25 +87,28 @@ spice-fusion/
 
 ### Colors
 
-- **Gold**: `#D4AF37` - Primary accent color
-- **Pepper (Black)**: `#1F1C1A` - Background color
-- **Basmati (Off-white)**: `#F8F0E3` - Text color
+- **Walnut**: `#795939` - Primary brand color
+- **Tan**: `#c5a77d` - Light accent color
+- **Charcoal**: `#4a4a4a` - Dark text and backgrounds
+- **Gold**: `#e6c07a` - Muted gold accents
+- **Beige**: `#c4b597` - Background color
 
 ### Typography
 
-- **Headings**: Serif font family (Playfair Display)
-- **Body**: Sans-serif font family (Inter)
+- **Display**: Playfair Display - For large headings
+- **Headings**: Cormorant Garamond - For section headings
+- **Body**: Inter - For body text and UI elements
 
 ## 🧩 Components
 
 The website uses a component-based architecture with reusable UI elements:
 
-- **Button**: Multi-variant button component
-- **Input**: Form input fields
-- **Card**: Content container with consistent styling
-- **ReservationForm**: Table booking form
-- **MenuCategory**: Menu section component
-- **MenuItem**: Dish display component
+- **UI Components**: Button, Input, Card, Calendar, Select, etc.
+- **Layout Components**: Header, Footer, responsive containers
+- **Section Components**: Hero banners, featured dishes, testimonials
+- **Animation Components**: Fade-in, slide-in, scroll-based animations
+- **Form Components**: Contact forms, reservation system
+- **Common Components**: Image optimization, error boundaries, lazy loading
 
 ## 📱 Responsive Design
 
@@ -106,15 +120,6 @@ The website is fully responsive with breakpoints for:
 
 ## 🔧 Configuration
 
-### Environment Variables
-
-Create a `.env.local` file in the root directory with the following variables:
-
-```
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_CONTACT_EMAIL=contact@example.com
-```
-
 ### Tailwind Configuration
 
 The `tailwind.config.js` file contains custom color definitions and theme extensions:
@@ -124,27 +129,32 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'gold': {
-          400: '#E5C158',
-          500: '#D4AF37',
-          600: '#C09B29',
+        primary: {
+          DEFAULT: '#795939', // Walnut
+          light: '#c5a77d',   // Tan
+          dark: '#4a4a4a',    // Charcoal
+          accent: '#e6c07a',  // Muted Gold
+          background: '#c4b597', // Beige
         },
-        'pepper': {
-          700: '#2A2724',
-          800: '#262220',
-          900: '#1F1C1A',
+        walnut: {
+          500: '#795939',
+          // Additional shades...
         },
-        'basmati': {
-          100: '#F8F0E3',
-          200: '#EFE6D9',
-          300: '#E6DCC9',
+        tan: {
+          400: '#c5a77d',
+          // Additional shades...
         },
-        // Additional colors...
+        // Additional color scales...
+      },
+      fontFamily: {
+        'serif': ['Cormorant Garamond', 'serif'],
+        'display': ['Playfair Display', 'serif'],
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
       },
       // Additional theme extensions...
     },
   },
-  // Plugin configurations...
+  plugins: [require('@tailwindcss/typography')],
 };
 ```
 
@@ -153,23 +163,26 @@ module.exports = {
 ### Code Style
 
 - Use TypeScript for type safety
-- Follow ESLint and Prettier configurations
+- Follow ESLint configurations
 - Use functional components with hooks
-- Implement proper error handling
+- Implement proper error handling and loading states
+- Use custom hooks for reusable logic
 
 ### Component Creation
 
 - Create reusable components for repeated UI elements
 - Use composition over inheritance
-- Implement proper prop validation
+- Implement proper prop validation with TypeScript
 - Follow the single responsibility principle
+- Use context providers for theme management
 
 ### CSS Guidelines
 
 - Use Tailwind utility classes for styling
 - Create custom utility classes for repeated patterns
-- Maintain consistent spacing and sizing
-- Follow the color scheme defined in the design system
+- Maintain consistent spacing using the 4px grid system
+- Follow the heritage color scheme defined in the design system
+- Use responsive design patterns for all screen sizes
 
 ## 🚢 Deployment
 
@@ -177,25 +190,23 @@ The website is configured for deployment on Vercel:
 
 1. Push your code to a GitHub repository
 2. Import the repository in Vercel
-3. Configure environment variables
-4. Deploy
+3. Deploy automatically on commits to main branch
 
 ## 📚 Additional Documentation
 
 For more detailed information about the project, refer to:
 
 - [PROJECT_DOCUMENTATION.md](./PROJECT_DOCUMENTATION.md) - Comprehensive project documentation
-- [CONTRIBUTING.md](./CONTRIBUTING.md) - Guidelines for contributing to the project
-- [CHANGELOG.md](./CHANGELOG.md) - History of changes and version updates
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- [TECHNICAL_SPECIFICATION.md](./TECHNICAL_SPECIFICATION.md) - Technical specifications
+- [STYLE_GUIDE.md](./STYLE_GUIDE.md) - Design system and style guide
 
 ## 🙏 Acknowledgements
 
 - [Next.js](https://nextjs.org/) - The React Framework
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [shadcn/ui](https://ui.shadcn.com/) - UI component library
+- [shadcn/ui](https://ui.shadcn.com/) - Beautifully designed components
+- [Radix UI](https://www.radix-ui.com/) - Unstyled, accessible components
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
 - [Lucide Icons](https://lucide.dev/) - Beautiful & consistent icons
+- [date-fns](https://date-fns.org/) - Modern JavaScript date utility library
 - [Vercel](https://vercel.com/) - Deployment platform

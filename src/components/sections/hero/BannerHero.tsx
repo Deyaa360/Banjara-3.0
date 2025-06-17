@@ -122,37 +122,18 @@ export const BannerHero: React.FC<BannerHeroProps> = ({
       </AnimatePresence>
 
       {/* Much Darker Heritage Overlay */}
-      <div
-        className="absolute inset-0 z-10"
-        style={{
-          background: `linear-gradient(135deg,
-            rgba(28, 28, 28, 0.85) 0%,
-            rgba(28, 28, 28, 0.75) 25%,
-            rgba(196, 181, 151, 0.1) 50%,
-            rgba(28, 28, 28, 0.75) 75%,
-            rgba(28, 28, 28, 0.85) 100%)`
-        }}
-      ></div>
+      
       <div
         className="absolute inset-0 z-10"
         style={{
           background: `linear-gradient(to top,
-            rgba(28, 28, 28, 0.85) 0%,
+            rgba(28, 28, 28, 0.65) 0%,
             rgba(28, 28, 28, 0.75) 50%,
-            rgba(28, 28, 28, 0.85) 100%)`
+            rgba(28, 28, 28, 0.90) 100%)`
         }}
       ></div>
       {/* Heavy Edge Darkening */}
-      <div
-        className="absolute inset-0 z-10"
-        style={{
-          background: `radial-gradient(ellipse at center,
-            transparent 25%,
-            rgba(28, 28, 28, 0.3) 60%,
-            rgba(28, 28, 28, 0.6) 90%,
-            rgba(28, 28, 28, 0.8) 100%)`
-        }}
-      ></div>
+      
 
       {/* Content with Beautiful Text Effects */}
       <div className="absolute inset-0 flex items-center justify-center z-20">

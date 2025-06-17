@@ -1,14 +1,14 @@
-# SpiceFusion Website Technical Specification
+# Banjara Restaurant Website Technical Specification
 
 ## 1. Introduction
 
-This document outlines the technical specifications for the SpiceFusion restaurant website, a modern web application built with Next.js, React, TypeScript, and Tailwind CSS. The website provides an elegant digital presence for a premium North Indian restaurant with features including menu display, online reservations, and contact capabilities.
+This document outlines the technical specifications for the Banjara restaurant website, a modern web application built with Next.js, React, TypeScript, and Tailwind CSS. The website provides an elegant digital presence for a heritage Indian cuisine restaurant with features including menu display, online reservations, contact capabilities, and immersive storytelling about nomadic culinary traditions.
 
 ## 2. System Architecture
 
 ### 2.1 Frontend Architecture
 
-The SpiceFusion website follows a component-based architecture using React and Next.js:
+The Banjara website follows a component-based architecture using React and Next.js:
 
 ```
 Client Browser <-> Next.js Server <-> Static Assets
@@ -43,19 +43,23 @@ Git Repository -> Vercel Build System -> Edge Network -> Global CDN
 | React | 18.x | UI library |
 | TypeScript | 5.x | Type-safe JavaScript |
 | Tailwind CSS | 3.x | Utility-first CSS framework |
-| shadcn/ui | - | Reusable UI components |
+| shadcn/ui | - | Reusable UI components built with Radix UI |
+| Radix UI | - | Unstyled, accessible UI primitives |
+| Framer Motion | - | Animation library |
 | Lucide Icons | - | Icon library |
 | React Hook Form | - | Form handling |
+| date-fns | - | Date manipulation |
+| Embla Carousel | - | Carousel component |
 
 ### 3.2 Development Tools
 
 | Tool | Version | Purpose |
 |------|---------|---------|
 | ESLint | 8.x | Code linting |
-| Prettier | 3.x | Code formatting |
 | PostCSS | 8.x | CSS processing |
 | Autoprefixer | 10.x | CSS vendor prefixing |
 | TypeScript | 5.x | Static type checking |
+| @tailwindcss/typography | - | Typography plugin |
 
 ### 3.3 Build and Deployment
 
@@ -202,23 +206,25 @@ interface ContactFormData {
 
 | Color Name | Hex Code | Usage |
 |------------|----------|-------|
-| Gold-400 | #E5C158 | Secondary accents |
-| Gold-500 | #D4AF37 | Primary accent color |
-| Gold-600 | #C09B29 | Hover states |
-| Pepper-700 | #2A2724 | Light background |
-| Pepper-800 | #262220 | Medium background |
-| Pepper-900 | #1F1C1A | Dark background |
-| Basmati-100 | #F8F0E3 | Primary text |
-| Basmati-200 | #EFE6D9 | Secondary text |
-| Basmati-300 | #E6DCC9 | Tertiary text |
+| Walnut-500 | #795939 | Primary brand color |
+| Tan-400 | #c5a77d | Light accent color |
+| Charcoal-500 | #4a4a4a | Dark text and backgrounds |
+| Gold-400 | #e6c07a | Muted gold accents |
+| Beige-300 | #c4b597 | Background color |
+| Stone-50 | #fafaf9 | Light backgrounds |
+| Stone-100 | #f5f5f4 | Card backgrounds |
+| Stone-200 | #e7e5e4 | Border colors |
+| Yellow-400 | #facc15 | Accent highlights |
+| Amber-500 | #f59e0b | Interactive elements |
 
 ### 7.2 Typography
 
 | Element | Font | Weight | Size | Line Height |
 |---------|------|--------|------|------------|
-| h1 | Playfair Display | 700 | 3rem-4rem | 1.2 |
-| h2 | Playfair Display | 700 | 2rem-3rem | 1.2 |
-| h3 | Playfair Display | 700 | 1.5rem-2rem | 1.3 |
+| Display | Playfair Display | 700 | 4rem-8rem | 1.1 |
+| h1 | Cormorant Garamond | 700 | 3rem-6rem | 1.2 |
+| h2 | Cormorant Garamond | 700 | 2rem-4rem | 1.2 |
+| h3 | Cormorant Garamond | 600 | 1.5rem-2rem | 1.3 |
 | Body | Inter | 300-400 | 1rem | 1.5 |
 | Small | Inter | 300 | 0.875rem | 1.4 |
 
@@ -387,4 +393,4 @@ The website must support:
 
 ## 16. Conclusion
 
-This technical specification provides a comprehensive guide for the development and maintenance of the SpiceFusion restaurant website. It serves as a reference for developers, designers, and stakeholders to ensure consistent implementation and future scalability of the project.
+This technical specification provides a comprehensive guide for the development and maintenance of the Banjara restaurant website. It serves as a reference for developers, designers, and stakeholders to ensure consistent implementation and future scalability of the project. The specification reflects the heritage positioning of the restaurant and supports the immersive storytelling approach that celebrates nomadic Indian culinary traditions.
